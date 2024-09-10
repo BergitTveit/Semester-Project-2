@@ -2,7 +2,6 @@ import { createButton, createInputField } from "../components.mjs";
 import {
   emailValidation,
   passwordValidation,
-  usernameValidation,
 } from "../validations/validators.mjs";
 
 export function initializeLoginForm() {
