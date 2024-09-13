@@ -1,6 +1,10 @@
-import { createButton } from '../components.mjs';
-import { handleCancelButtonClick, handleRegisterButtonClick } from './formhandlers.mjs';
-import { createEmailInput, createNameInput, createPasswordInput } from './forminputs.mjs';
+import { createButton } from '../components/buttons.mjs';
+import {
+    createEmailInput,
+    createNameInput,
+    createPasswordInput,
+} from '../components/forminputs.mjs';
+import { handleCancelButtonClick, handleRegisterButtonClick } from '../handlers/formhandlers.mjs';
 
 export function initializeRegisterForm() {
     const form = document.getElementById('registerForm');
