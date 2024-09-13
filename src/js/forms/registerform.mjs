@@ -4,34 +4,27 @@ import { createEmailInput, createNameInput, createPasswordInput } from './formin
 
 export function initializeRegisterForm() {
     const form = document.getElementById('registerForm');
-
-    const nameInput = createNameInput();
-    const emailInput = createEmailInput();
-    const passwordInput = createPasswordInput();
-
-    const cancelButton = createButton('Cancel', handleCancelButtonClick);
-    const registerButton = createButton('Register', () =>
-        handleRegisterButtonClick(nameInput, emailInput, passwordInput)
-    );
-
+    const registerButton = createButton('Register', () => {
+        handleRegisterButtonClick(nameInput, emailInput, passwordInput);
+    });
     registerButton.disabled = true;
+
+    function checkFormValidity() {
+        const nameError = nameInput.querySelector('.text-red-500').textContent;
+        const emailError = emailInput.querySelector('.text-red-500').textContent;
+        const passwordError = passwordInput.querySelector('.text-red-500').textContent;
+        registerButton.disabled = !!(nameError || emailError || passwordError);
+    }
+
+    const nameInput = createNameInput(checkFormValidity);
+    const emailInput = createEmailInput(checkFormValidity);
+    const passwordInput = createPasswordInput(checkFormValidity);
 
     form.appendChild(nameInput);
     form.appendChild(emailInput);
     form.appendChild(passwordInput);
-
-    form.appendChild(cancelButton);
+    form.appendChild(createButton('Cancel', handleCancelButtonClick));
     form.appendChild(registerButton);
 
-    function checkFormValidity() {
-        const isFormValid =
-            nameInput.checkValidity() &&
-            emailInput.checkValidity() &&
-            passwordInput.checkValidity();
-        registerButton.disabled = !isFormValid;
-    }
-
-    nameInput.addEventListener('input', checkFormValidity);
-    emailInput.addEventListener('input', checkFormValidity);
-    passwordInput.addEventListener('input', checkFormValidity);
+    checkFormValidity();
 }
