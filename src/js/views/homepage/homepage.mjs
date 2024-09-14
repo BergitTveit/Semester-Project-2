@@ -1,7 +1,7 @@
-import { createBottomNavBar } from "../../components.mjs";
+import { createBottomNavBar } from '../../components/navbar.mjs';
 
 async function homepage() {
-  await createBottomNavBar();
+    await createBottomNavBar();
 }
 
-document.addEventListener("DOMContentLoaded", homepage);
+document.addEventListener('DOMContentLoaded', homepage);
