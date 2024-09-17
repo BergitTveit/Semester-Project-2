@@ -12,7 +12,7 @@ export function createButton(text, onClick) {
     return button;
 }
 
-export function createNavButton(text, iconClass) {
+export function createNavButton(text, iconClass, targetUrl) {
     const button = document.createElement('button');
     button.className =
         'flex flex-col items-center justify-center text-blue-600 hover:text-blue-500 focus:outline-none';
@@ -22,6 +22,10 @@ export function createNavButton(text, iconClass) {
     const icon = document.createElement('span');
     icon.className = `${iconClass} text-2xl`;
     button.appendChild(icon);
+
+    button.addEventListener('click', () => {
+        window.location.href = targetUrl;
+    });
 
     return button;
 }
