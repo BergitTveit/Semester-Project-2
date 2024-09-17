@@ -66,3 +66,12 @@ export function createPasswordInput(onInput) {
         onInput,
     });
 }
+
+export function createAvatarInput(onInputChange) {
+    return createInputField({
+        type: 'url',
+        placeholder: 'Enter the URL of your avatar image',
+        validationFn: null,
+        onInput: onInputChange,
+    });
+}
