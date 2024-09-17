@@ -9,6 +9,7 @@ import { handleCancelButtonClick, handleRegisterButtonClick } from '../handlers/
 export function initializeRegisterForm() {
     const form = document.getElementById('registerForm');
     const registerButton = createButton('Register', handleRegisterClick);
+    registerButton.id = 'registerButton';
     registerButton.disabled = true;
 
     let nameInput, emailInput, passwordInput;
