@@ -5,6 +5,7 @@ import { handleGoToRegisterPageClick, handleLoginButtonClick } from '../handlers
 export function initializeLoginForm() {
     const form = document.getElementById('loginForm');
     const loginButton = createButton('Login', handleLoginClick);
+    loginButton.id = 'loginButton';
     loginButton.disabled = true;
 
     let emailInput, passwordInput;
