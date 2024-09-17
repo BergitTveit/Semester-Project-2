@@ -7,7 +7,7 @@
 
         <link href="../../output.css" rel="stylesheet" />
         <title>Profile Page</title>
-        <!-- <script type="module" src="../../src/js/views/registerpage/registerpage.mjs" defer></script> -->
+        <script type="module" src="../../src/js/views/profilepage/profilepage.mjs" defer></script>
         <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
             rel="stylesheet"
@@ -15,6 +15,13 @@
     </head>
     <body>
         This is the profile Page
+        <button
+            onclick="location.href='../../settings/index.html'"
+            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+        >
+            Go to Settings
+        </button>
         <div id="profileContainer" class="w-full max-w-md"></div>
+        <div id="bottomNavBar"></div>
     </body>
 </html>
