@@ -3,13 +3,29 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="./output.css" rel="stylesheet" />
-        <title>Listings by category</title>
-        <!-- make title be same as category -->
-        <!-- link to JS sheet -->
+        <link rel="icon" href="../../assets/images/favicon-32x32.png" type="image/x-icon" />
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+            #loginForm {
+                max-width: 600px;
+                margin: auto;
+            }
+        </style>
+        <link href="../../output.css" rel="stylesheet" />
+        <title>Auction Listings</title>
+        <script type="module" src="../../src/js/views/listingspage/auctionpage.mjs" defer></script>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+            rel="stylesheet"
+        />
     </head>
     <body>
         <div>HELLO ALL LISTINGS</div>
-        <div id="listingsContainer" class="w-full max-w-md"></div>
+        <div id="auction-listings-container" class="container mx-auto mt-8"></div>
+
+        <div id="bottomNavBar"></div>
     </body>
 </html>
