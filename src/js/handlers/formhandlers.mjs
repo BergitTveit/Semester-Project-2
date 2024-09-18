@@ -1,5 +1,8 @@
 import { loginUser } from '../api/auth/login_user.mjs';
 import { registerNewUser } from '../api/auth/register_new_user.mjs';
+import { updateProfile } from '../api/profile/updateProfile.mjs';
+import { clear } from '../storage/clear.mjs';
+import { save } from '../storage/save.mjs';
 
 export async function handleRegisterButtonClick(nameInput, emailInput, passwordInput) {
     const name = nameInput.querySelector('input').value;
@@ -41,10 +44,39 @@ export async function handleLoginButtonClick(emailInput, passwordInput) {
     }
 }
 
+export async function handleLogoutButtonClick() {
+    clear('token');
+    clear('profile');
+    window.location.href = '/index.html';
+}
 export function handleCancelButtonClick() {
-    console.log('Cancel button clicked');
+    window.location.href = '/index.html';
+}
+
+export async function handleUpdateButtonClick(event) {
+    event.preventDefault();
+
+    const form = document.getElementById('settingsForm');
+    const nameInput = form.querySelector('input[placeholder="Name"]');
+    const bioInput = form.querySelector('textarea[placeholder="Bio"]');
+    const avatarInput = form.querySelector('input[placeholder="Avatar Image URL"]');
+
+    const profileData = {
+        name: nameInput.value,
+        bio: bioInput.value,
+        avatar: avatarInput.value ? { url: avatarInput.value, alt: 'User Avatar' } : undefined,
+    };
+
+    try {
+        const updatedProfile = await updateProfile(profileData);
+        save('profile', updatedProfile.data);
+        alert('Profile updated successfully!');
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        alert('Failed to update profile. Please try again.');
+    }
 }
 
 export function handleGoToRegisterPageClick() {
-    console.log('Register button clicked');
+    window.location.href = '/pages/register/index.html';
 }

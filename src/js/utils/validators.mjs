@@ -8,3 +8,8 @@ export const emailValidation = value => {
 
 export const passwordValidation = value =>
     value.length >= 8 ? null : 'Password must be at least 8 characters long';
+
+export const urlValidation = value => {
+    const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+    return urlRegex.test(value) ? null : 'Please enter a valid URL';
+};

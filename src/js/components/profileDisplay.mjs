@@ -35,12 +35,5 @@ export function displayProfile(profileData) {
         profileElement.appendChild(bioElement);
     }
 
-    if (profile.email) {
-        const emailElement = document.createElement('p');
-        emailElement.textContent = `Email: ${profile.email}`;
-        emailElement.classList.add('text-gray-600', 'mb-2');
-        profileElement.appendChild(emailElement);
-    }
-
     container.appendChild(profileElement);
 }
