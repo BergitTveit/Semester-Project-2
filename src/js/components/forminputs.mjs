@@ -1,4 +1,9 @@
-import { emailValidation, passwordValidation, usernameValidation } from '../utils/validators.mjs';
+import {
+    emailValidation,
+    passwordValidation,
+    urlValidation,
+    usernameValidation,
+} from '../utils/validators.mjs';
 
 //Create input field
 
@@ -67,11 +72,28 @@ export function createPasswordInput(onInput) {
     });
 }
 
-export function createAvatarInput(onInputChange) {
+export function createBioInput(onInput) {
+    const container = document.createElement('div');
+    container.classList.add('relative', 'mb-4');
+
+    const textarea = document.createElement('textarea');
+    textarea.placeholder = 'Bio';
+    textarea.classList.add('form-textarea');
+    textarea.rows = 3;
+
+    if (onInput) {
+        textarea.addEventListener('input', onInput);
+    }
+
+    container.appendChild(textarea);
+    return container;
+}
+
+export function createAvatarInput(onInput) {
     return createInputField({
         type: 'url',
-        placeholder: 'Enter the URL of your avatar image',
-        validationFn: null,
-        onInput: onInputChange,
+        placeholder: 'Avatar Image URL',
+        validationFn: urlValidation,
+        onInput,
     });
 }
