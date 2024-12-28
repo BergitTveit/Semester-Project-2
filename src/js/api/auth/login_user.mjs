@@ -16,16 +16,15 @@ export async function loginUser(email, password) {
         save('token', accessToken);
         save('profile', profile);
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const profileName = urlParams.get('name');
-        if (profileName) {
-            window.location.href = `/page/profile/index.html?name=${profileName}`;
-            return;
-        }
-        window.location.href = '/pages/profile/index.html';
-
         return profile;
     }
 
     throw new Error('Could not login the account');
 }
+// const urlParams = new URLSearchParams(window.location.search);
+// const profileName = urlParams.get('name');
+// if (profileName) {
+//     window.location.href = `/page/profile/index.html?name=${profileName}`;
+//     return;
+// }
+// window.location.href = '/pages/profile/index.html';

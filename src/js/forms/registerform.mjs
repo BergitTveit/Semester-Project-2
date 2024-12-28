@@ -4,7 +4,8 @@ import {
     createNameInput,
     createPasswordInput,
 } from '../components/forminputs.mjs';
-import { handleCancelButtonClick, handleRegisterButtonClick } from '../handlers/formhandlers.mjs';
+import { handleCancelButtonClick } from '../handlers/formhandlers.mjs';
+import { handleRegisterButtonClick } from '../handlers/registerButtonHandler.mjs';
 
 export function initializeRegisterForm() {
     const form = document.getElementById('registerForm');
