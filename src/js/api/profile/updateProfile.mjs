@@ -10,32 +10,42 @@ export async function updateProfile(profileData) {
         !updateData.avatar &&
         updateData.credits === undefined
     ) {
-        throw new Error(
-            'At least one property (bio, banner, avatar, or credits) must be provided.'
-        );
+        throw {
+            status: 400,
+            message: 'At least one property (bio, banner, avatar, or credits) must be provided.',
+            errors: [],
+        };
     }
 
     const url = `${API_BASE}${API_SOCIAL}${name}`;
-    console.log('Updating profile at URL:', url);
 
     try {
-        const resolvedHeaders = await headers(true, true);
         const response = await fetch(url, {
             method: 'PUT',
-            headers: resolvedHeaders,
+            headers: headers(true, true),
             body: JSON.stringify(updateData),
         });
 
-        if (response.ok) {
-            const updatedProfileData = await response.json();
-            console.log('Updated profile data:', updatedProfileData);
-            return updatedProfileData;
-        } else {
+        if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`Failed to update profile: ${errorData.message || 'Unknown error'}`);
+            throw {
+                status: response.status,
+                message: `Failed to update profile: ${errorData.message || 'Unknown error'}`,
+                errors: errorData.errors || [],
+            };
         }
+
+        const updatedProfileData = await response.json();
+        return updatedProfileData;
     } catch (error) {
-        console.error('Error updating profile:', error);
+        if (error instanceof TypeError) {
+            throw {
+                status: 0,
+                message: 'Network error - please check your connection',
+                errors: [],
+            };
+        }
         throw error;
     }
 }
+// add class for api and other for validatioin,and for network fault

@@ -1,4 +1,4 @@
-import { loadAndDisplayAuctionListings } from '../../api/auction/auctions.mjs';
+import { loadAndDisplayAuctionListings } from '../../api/auction/auction.mjs';
 import { createBottomNavBar } from '../../components/navbar.mjs';
 
 async function auctionPage() {

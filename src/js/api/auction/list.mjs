@@ -1,16 +1,16 @@
-import { API_AUCTION_LISTINGS, API_BASE } from '../../utils/constants.mjs';
+import { API_BASE, API_AUCTION_LISTINGS } from '../../utils/constants.mjs';
 import { headers } from '../../utils/headers.mjs';
 
-export async function fetchListingsAccordingToSearch(searchText) {
-    const postsEndpoint = `${API_BASE}${API_AUCTION_LISTINGS}/search?q=${encodeURIComponent(searchText)}`;
+export async function getAuctionListings() {
+    const url = `${API_BASE}${API_AUCTION_LISTINGS}`;
 
     try {
-        const response = await fetch(postsEndpoint, {
+        const response = await fetch(url, {
             headers: headers(false, false),
         });
+        const data = await response.json();
 
         if (!response.ok) {
-            const data = await response.json();
             throw {
                 status: response.status,
                 message: data.message || 'Failed to fetch auction listings',
@@ -18,9 +18,7 @@ export async function fetchListingsAccordingToSearch(searchText) {
             };
         }
 
-        const listingsData = await response.json();
-
-        return listingsData.data;
+        return data;
     } catch (error) {
         if (error instanceof TypeError) {
             throw {
@@ -29,8 +27,8 @@ export async function fetchListingsAccordingToSearch(searchText) {
                 errors: [],
             };
         }
+
         throw error;
     }
 }
-// rename to getListings
-// add class for api and other for network fault
+// add error class for api

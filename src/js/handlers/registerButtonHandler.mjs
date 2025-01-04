@@ -1,5 +1,5 @@
-import { loginUser } from '../api/auth/login_user.mjs';
-import { registerNewUser } from '../api/auth/register_new_user.mjs';
+import { loginUser } from '../api/auth/login.mjs';
+import { registerNewUser } from '../api/auth/register.mjs';
 import { addInitialCredits } from '../api/profile/addInitialCredits.mjs';
 import { save } from '../storage/save.mjs';
 
