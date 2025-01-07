@@ -3,8 +3,9 @@ import { loginUser } from '../api/auth/login.mjs';
 // import { addInitialCredits } from '../api/profile/addInitialCredits.mjs';
 
 import { updateProfile } from '../api/profile/updateProfile.mjs';
-import { clear } from '../storage/clear.mjs';
-import { save } from '../storage/save.mjs';
+import { redirectToProfileOrLogin } from '../utils/storage/checkLoginStatus.mjs';
+import { clear } from '../utils/storage/clear.mjs';
+import { save } from '../utils/storage/save.mjs';
 
 // export async function handleRegisterButtonClick(nameInput, emailInput, passwordInput) {
 //     const name = nameInput.querySelector('input').value;
@@ -67,8 +68,8 @@ import { save } from '../storage/save.mjs';
 // }
 
 export async function handleLoginButtonClick(emailInput, passwordInput) {
-    const email = emailInput.querySelector('input').value;
-    const password = passwordInput.querySelector('input').value;
+    const email = emailInput.querySelector('input').value.trim();
+    const password = passwordInput.querySelector('input').value.trim();
 
     const emailError = emailInput.querySelector('.text-red-500').textContent;
     const passwordError = passwordInput.querySelector('.text-red-500').textContent;
@@ -79,6 +80,8 @@ export async function handleLoginButtonClick(emailInput, passwordInput) {
     try {
         const result = await loginUser(email, password);
         console.log('Login successfully:', result);
+        const redirectUrl = redirectToProfileOrLogin();
+        window.location.href = redirectUrl;
     } catch (error) {
         console.error('Error registering:', error.message);
     }

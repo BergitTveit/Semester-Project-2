@@ -1,6 +1,6 @@
 import { getProfile } from './get.mjs';
 import { displayProfile } from '../../components/profileDisplay.mjs';
-import { load } from '../../storage/load.mjs';
+import { load } from '../../utils/storage/load.mjs';
 
 export async function loadAndDisplayProfile() {
     const container = document.getElementById('profile-container');

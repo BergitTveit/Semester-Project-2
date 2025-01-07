@@ -10,7 +10,7 @@ import {
     handleLogoutButtonClick,
     handleUpdateButtonClick,
 } from '../handlers/formhandlers.mjs';
-import { load } from '../storage/load.mjs';
+import { load } from '../utils/storage/load.mjs';
 
 export function initializeSettingsForm() {
     const form = document.getElementById('settingsForm');

@@ -1,8 +1,7 @@
-import { save } from '../../storage/save.mjs';
+import { save } from '../../utils/storage/save.mjs';
 import { API_AUTH, API_BASE, API_LOGIN } from '../../utils/constants.mjs';
 import { headers } from '../../utils/headers.mjs';
 
-headers;
 export async function loginUser(email, password) {
     try {
         const response = await fetch(API_BASE + API_AUTH + API_LOGIN, {
@@ -11,7 +10,7 @@ export async function loginUser(email, password) {
             body: JSON.stringify({ email, password }),
         });
 
-        if (response.ok) {
+        if (!response.ok) {
             const data = await response.json();
             throw {
                 status: response.status,
