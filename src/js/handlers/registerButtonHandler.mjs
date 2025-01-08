@@ -1,8 +1,6 @@
 import { loginUser } from '../api/auth/login.mjs';
 import { registerNewUser } from '../api/auth/register.mjs';
-import { addInitialCredits } from '../api/profile/addInitialCredits.mjs';
-import { redirectToProfileOrLogin } from '../utils/storage/checkLoginStatus.mjs';
-import { save } from '../utils/storage/save.mjs';
+// import { redirectToProfileOrLogin } from '../utils/storage/checkLoginStatus.mjs';
 
 export async function handleRegisterButtonClick(nameInput, emailInput, passwordInput) {
     const name = nameInput.querySelector('input').value.trim();
@@ -21,24 +19,10 @@ export async function handleRegisterButtonClick(nameInput, emailInput, passwordI
     //refactor login too.
     try {
         const registrationResult = await registerNewUser(name, email, password);
-        console.log('Registered successfully:', registrationResult);
+        console.log('Registered successfully, reg button:', registrationResult);
 
         const loginResult = await loginUser(email, password);
-        console.log('User logged in successfully:', loginResult);
-
-        try {
-            const updatedProfile = await addInitialCredits(name);
-            console.log('Profile after adding initial credits:', updatedProfile.data);
-            console.log('Credits added:', updatedProfile.data.credits);
-
-            save('profile', updatedProfile.data);
-            save('creditAdditionComplete', 'true');
-
-            window.location.href = redirectToProfileOrLogin();
-        } catch (creditError) {
-            console.error('Error adding initial credits:', creditError.message);
-            save('creditAdditionError', creditError.message);
-        }
+        console.log('User logged in successfully, from registerbutton:', loginResult);
     } catch (error) {
         console.error('Error during registration process:', error.message);
 

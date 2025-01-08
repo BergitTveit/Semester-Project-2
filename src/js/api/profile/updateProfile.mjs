@@ -1,4 +1,4 @@
-import { API_BASE, API_SOCIAL } from '../../utils/constants.mjs';
+import { API_BASE, API_PROFILE } from '../../utils/constants.mjs';
 import { headers } from '../../utils/headers.mjs';
 
 export async function updateProfile(profileData) {
@@ -17,7 +17,7 @@ export async function updateProfile(profileData) {
         };
     }
 
-    const url = `${API_BASE}${API_SOCIAL}${name}`;
+    const url = `${API_BASE}${API_PROFILE}${name}`;
 
     try {
         const response = await fetch(url, {

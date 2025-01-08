@@ -1,71 +1,8 @@
 import { loginUser } from '../api/auth/login.mjs';
-// import { registerNewUser } from '../api/auth/register.mjs';
-// import { addInitialCredits } from '../api/profile/addInitialCredits.mjs';
-
 import { updateProfile } from '../api/profile/updateProfile.mjs';
-import { redirectToProfileOrLogin } from '../utils/storage/checkLoginStatus.mjs';
+// import { redirectToProfileOrLogin } from '../utils/storage/checkLoginStatus.mjs';
 import { clear } from '../utils/storage/clear.mjs';
 import { save } from '../utils/storage/save.mjs';
-
-// export async function handleRegisterButtonClick(nameInput, emailInput, passwordInput) {
-//     const name = nameInput.querySelector('input').value;
-//     const email = emailInput.querySelector('input').value;
-//     const password = passwordInput.querySelector('input').value;
-
-//     const nameError = nameInput.querySelector('.text-red-500').textContent;
-//     const emailError = emailInput.querySelector('.text-red-500').textContent;
-//     const passwordError = passwordInput.querySelector('.text-red-500').textContent;
-
-//     if (nameError || emailError || passwordError) {
-//         console.error('Form contains validation errors.');
-//         return;
-//     }
-
-//     try {
-//         const registrastionResult = await registerNewUser(name, email, password);
-//         console.log('Registered successfully:', registrastionResult);
-
-//         // Log in the user after successful registration
-//         const loginResult = await loginUser(email, password);
-//         console.log('User logged in successfully:', loginResult);
-//         save('token', loginResult.accessToken);
-//         save('profile', loginResult);
-
-//         // Add initial credits
-//         const updatedProfile = await addInitialCredits(name);
-//         console.log('Initial credits added successfully:', updatedProfile);
-//         save('profile', updatedProfile);
-
-//         console.log('Initial credits added successfully');
-
-//         // Redirect to profile page or perform any other post-registration actions
-//         // window.location.href = '/pages/profile/index.html?name=' + name;
-//     } catch (error) {
-//         console.error('Error during registration process:', error.message);
-//     }
-// }
-
-// export async function handleRegisterButtonClick(nameInput, emailInput, passwordInput) {
-//     const name = nameInput.querySelector('input').value;
-//     const email = emailInput.querySelector('input').value;
-//     const password = passwordInput.querySelector('input').value;
-
-//     const nameError = nameInput.querySelector('.text-red-500').textContent;
-//     const emailError = emailInput.querySelector('.text-red-500').textContent;
-//     const passwordError = passwordInput.querySelector('.text-red-500').textContent;
-
-//     if (nameError || emailError || passwordError) {
-//         console.error('Form contains validation errors.');
-//         return;
-//     }
-
-//     try {
-//         const result = await registerNewUser(name, email, password);
-//         console.log('Registered successfully:', result);
-//     } catch (error) {
-//         console.error('Error registering:', error.message);
-//     }
-// }
 
 export async function handleLoginButtonClick(emailInput, passwordInput) {
     const email = emailInput.querySelector('input').value.trim();
@@ -79,9 +16,9 @@ export async function handleLoginButtonClick(emailInput, passwordInput) {
     }
     try {
         const result = await loginUser(email, password);
-        console.log('Login successfully:', result);
-        const redirectUrl = redirectToProfileOrLogin();
-        window.location.href = redirectUrl;
+        console.log('Login successfully loginbutton:', result);
+        // const redirectUrl = redirectToProfileOrLogin();
+        // window.location.href = redirectUrl;
     } catch (error) {
         console.error('Error registering:', error.message);
     }

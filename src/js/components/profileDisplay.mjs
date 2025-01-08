@@ -2,6 +2,7 @@ export function displayProfile(profileData) {
     const container = document.getElementById('profile-container');
     container.innerHTML = '';
     const profile = profileData.data;
+    const credits = profileData.credits;
 
     const profileElement = document.createElement('div');
     profileElement.classList.add(
@@ -27,6 +28,11 @@ export function displayProfile(profileData) {
     nameElement.textContent = profile.name;
     nameElement.classList.add('text-2xl', 'font-bold', 'mb-2');
     profileElement.appendChild(nameElement);
+
+    const creditsElement = document.createElement('h1');
+    creditsElement.textContent = credits;
+    creditsElement.classList.add('text-2xl', 'font-bold', 'mb-2');
+    profileElement.appendChild(creditsElement);
 
     if (profile.bio) {
         const bioElement = document.createElement('p');

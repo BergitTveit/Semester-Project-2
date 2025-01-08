@@ -20,6 +20,7 @@ export async function registerNewUser(name, email, password) {
 
         return data;
     } catch (error) {
+        console.error('Registration error details:', error);
         if (error instanceof TypeError) {
             throw {
                 status: 0,
