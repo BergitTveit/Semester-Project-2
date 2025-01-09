@@ -4,27 +4,29 @@ import { headers } from '../../utils/headers.mjs';
 
 export async function loginUser(email, password) {
     try {
-        const response = await fetch(API_BASE + API_AUTH + API_LOGIN, {
+        const url = `${API_BASE}${API_AUTH}${API_LOGIN}`;
+        const requestOptions = {
             headers: headers(true, true),
             method: 'POST',
             body: JSON.stringify({ email, password }),
-        });
+        };
+
+        const response = await fetch(url, requestOptions);
+        const responseData = await response.json();
 
         if (!response.ok) {
-            const data = await response.json();
             throw {
                 status: response.status,
-                message: data.message || 'Login failed',
-                errors: data.errors || [],
+                message: responseData.message || 'Login failed',
+                errors: responseData.errors || [],
             };
         }
 
-        const { accessToken, ...profile } = (await response.json()).data;
-
+        const { accessToken, ...userProfile } = responseData.data;
         save('token', accessToken);
-        save('profile', profile);
+        save('profile', userProfile);
 
-        return profile;
+        return userProfile;
     } catch (error) {
         if (error instanceof TypeError) {
             throw {

@@ -3,24 +3,26 @@ import { headers } from '../../utils/headers.mjs';
 
 export async function registerNewUser(name, email, password) {
     try {
-        const response = await fetch(API_BASE + API_AUTH + API_REGISTER, {
+        const url = `${API_BASE}${API_AUTH}${API_REGISTER}`;
+        const requestOptions = {
             headers: headers(true, true),
             method: 'POST',
             body: JSON.stringify({ name, email, password }),
-        });
-        const data = await response.json();
+        };
+
+        const response = await fetch(url, requestOptions);
+        const responseData = await response.json();
 
         if (!response.ok) {
             throw {
                 status: response.status,
-                message: data.message || 'Registration failed',
-                errors: data.errors || [],
+                message: responseData.message || 'Registration failed',
+                errors: responseData.errors || [],
             };
         }
 
-        return data;
+        return responseData;
     } catch (error) {
-        console.error('Registration error details:', error);
         if (error instanceof TypeError) {
             throw {
                 status: 0,

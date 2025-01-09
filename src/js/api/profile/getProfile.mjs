@@ -1,25 +1,23 @@
 import { API_BASE, API_PROFILE } from '../../utils/constants.mjs';
 import { headers } from '../../utils/headers.mjs';
 
-export async function getProfile(name) {
-    const url = `${API_BASE + API_PROFILE}${name}`;
-
+export async function getProfile(userName) {
     try {
-        const response = await fetch(url, {
-            headers: headers(false, true),
-        });
+        const url = `${API_BASE}${API_PROFILE}${userName}`;
+        const requestOptions = { headers: headers(false, true) };
+
+        const response = await fetch(url, requestOptions);
+        const responseData = await response.json();
 
         if (!response.ok) {
-            const data = await response.json();
             throw {
                 status: response.status,
-                message: data.message || 'Failed to fetch profile data',
-                errors: data.errors || [],
+                message: responseData.message || 'Failed to fetch profile data',
+                errors: responseData.errors || [],
             };
         }
 
-        const profileData = await response.json();
-        return profileData;
+        return responseData.data;
     } catch (error) {
         if (error instanceof TypeError) {
             throw {

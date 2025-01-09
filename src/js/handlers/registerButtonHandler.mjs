@@ -1,28 +1,17 @@
-import { loginUser } from '../api/auth/login.mjs';
-import { registerNewUser } from '../api/auth/register.mjs';
-// import { redirectToProfileOrLogin } from '../utils/storage/checkLoginStatus.mjs';
+import { loginUser } from '../api/auth/loginUser.mjs';
+import { registerNewUser } from '../api/auth/registerUser.mjs';
+import { redirectToProfileOrLogin } from '../utils/storage/checkLoginStatus.mjs';
 
 export async function handleRegisterButtonClick(nameInput, emailInput, passwordInput) {
     const name = nameInput.querySelector('input').value.trim();
     const email = emailInput.querySelector('input').value.trim();
     const password = passwordInput.querySelector('input').value.trim();
 
-    const formErrors = {
-        name: nameInput.querySelector('.text-red-500').textContent,
-        email: emailInput.querySelector('.text-red-500').textContent,
-        password: passwordInput.querySelector('.text-red-500').textContent,
-    };
-    if (Object.values(formErrors).some(error => error)) {
-        console.error('Form contains validation errors:', formErrors);
-        return;
-    }
-    //refactor login too.
     try {
-        const registrationResult = await registerNewUser(name, email, password);
-        console.log('Registered successfully, reg button:', registrationResult);
+        await registerNewUser(name, email, password);
 
-        const loginResult = await loginUser(email, password);
-        console.log('User logged in successfully, from registerbutton:', loginResult);
+        await loginUser(email, password);
+        window.location.href = redirectToProfileOrLogin();
     } catch (error) {
         console.error('Error during registration process:', error.message);
 

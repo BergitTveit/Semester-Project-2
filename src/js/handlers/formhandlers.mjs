@@ -1,33 +1,23 @@
-import { loginUser } from '../api/auth/login.mjs';
+import { loginUser } from '../api/auth/loginUser.mjs';
+import { logoutUser } from '../api/auth/logoutUser.mjs';
 import { updateProfile } from '../api/profile/updateProfile.mjs';
-// import { redirectToProfileOrLogin } from '../utils/storage/checkLoginStatus.mjs';
-import { clear } from '../utils/storage/clear.mjs';
+import { redirectToProfileOrLogin } from '../utils/storage/checkLoginStatus.mjs';
+
 import { save } from '../utils/storage/save.mjs';
 
 export async function handleLoginButtonClick(emailInput, passwordInput) {
     const email = emailInput.querySelector('input').value.trim();
     const password = passwordInput.querySelector('input').value.trim();
-
-    const emailError = emailInput.querySelector('.text-red-500').textContent;
-    const passwordError = passwordInput.querySelector('.text-red-500').textContent;
-    if (emailError || passwordError) {
-        console.error('Form contains validation errors.');
-        return;
-    }
     try {
-        const result = await loginUser(email, password);
-        console.log('Login successfully loginbutton:', result);
-        // const redirectUrl = redirectToProfileOrLogin();
-        // window.location.href = redirectUrl;
+        await loginUser(email, password);
+        window.location.href = redirectToProfileOrLogin();
     } catch (error) {
         console.error('Error registering:', error.message);
     }
 }
 
 export async function handleLogoutButtonClick() {
-    clear('token');
-    clear('profile');
-    window.location.href = '/index.html';
+    logoutUser();
 }
 export function handleCancelButtonClick() {
     window.location.href = '/index.html';

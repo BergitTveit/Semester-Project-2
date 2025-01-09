@@ -1,4 +1,4 @@
-import { getProfile } from './get.mjs';
+import { getProfile } from './getProfile.mjs';
 import { displayProfile } from '../../components/profileDisplay.mjs';
 import { load } from '../../utils/storage/load.mjs';
 
@@ -8,14 +8,14 @@ export async function loadAndDisplayProfile() {
     // check loader and order syntax
     container.innerHTML = `<p class="text-blue-500">Create LOADER for loading auction list-....</p>`;
     try {
-        const profileName =
+        const userName =
             load('profile')?.name || new URLSearchParams(window.location.search).get('name');
 
-        if (!profileName) throw new Error('Profile name is not provided');
+        if (!userName) throw new Error('Profile name is not provided');
 
-        const profileData = await getProfile(profileName);
+        const profileResult = await getProfile(userName);
 
-        displayProfile(profileData);
+        displayProfile(profileResult);
     } catch (error) {
         console.error('Error loading profile:', error);
         window.location.href = `/index.html`;
