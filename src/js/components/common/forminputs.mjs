@@ -92,7 +92,7 @@ export function createBioInput(onInput) {
     return container;
 }
 
-export function createAvatarInput(onInput) {
+export function createMediaInput(onInput) {
     return createInputField({
         type: 'url',
         placeholder: 'Avatar Image URL',
