@@ -1,9 +1,8 @@
 import {
+    dateValidation,
     emailValidation,
-    listingDeadlineValidation,
-    listingDescriptionValidation,
-    listingTitleValidation,
     passwordValidation,
+    titleValidation,
     urlValidation,
     usernameValidation,
 } from '../../utils/validators.mjs';
@@ -101,29 +100,45 @@ export function createMediaInput(onInput) {
     });
 }
 
-//////////////////////////////////////
 export function createTitleInput(onInput) {
     return createInputField({
         type: 'text',
-        placeholder: 'Listing Title',
-        validationFn: listingTitleValidation,
+        placeholder: 'Title (required)',
+        validationFn: titleValidation,
         onInput,
     });
 }
 
-export function createDeadlineInput(onInput) {
+export function createDateInput(onInput) {
     return createInputField({
-        type: 'date',
-        placeholder: 'Deadline (YYYY-MM-DD)',
-        validationFn: listingDeadlineValidation,
+        type: 'datetime-local',
+        placeholder: 'End Date (required)',
+        validationFn: dateValidation,
         onInput,
     });
 }
-export function createDescriptionInput(onInput) {
+
+export function createListingMediaInput(onInput) {
     return createInputField({
-        type: 'text',
-        placeholder: 'Description (optional)',
-        validationFn: listingDescriptionValidation,
+        type: 'url',
+        placeholder: 'Image URL (optional)',
         onInput,
     });
+}
+
+export function createDescriptionInput(onInput) {
+    const container = document.createElement('div');
+    container.classList.add('relative', 'mb-4');
+
+    const textarea = document.createElement('textarea');
+    textarea.placeholder = 'Description (optional)';
+    textarea.classList.add('form-textarea');
+    textarea.rows = 4;
+
+    if (onInput) {
+        textarea.addEventListener('input', onInput);
+    }
+
+    container.appendChild(textarea);
+    return container;
 }

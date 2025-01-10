@@ -1,13 +1,20 @@
-import { API_BASE, API_LISTINGS } from '../../utils/constants.mjs';
+import { API_AUCTION_LISTINGS, API_BASE } from '../../utils/constants.mjs';
 import { headers } from '../../utils/headers.mjs';
 
-export async function createListing(title, deadline, media, description) {
+export async function createListing(title, description, media, endsAt) {
     try {
-        const url = `${API_BASE}${API_LISTINGS}`;
+        const url = `${API_BASE}${API_AUCTION_LISTINGS}`;
+        const body = {
+            title,
+            endsAt,
+            ...(description && { description }),
+            ...(media && { media: [{ url: media, alt: title }] }),
+        };
+
         const requestOptions = {
             headers: headers(true, true),
             method: 'POST',
-            body: JSON.stringify({ title, deadline, media, description }),
+            body: JSON.stringify(body),
         };
 
         const response = await fetch(url, requestOptions);
@@ -16,11 +23,10 @@ export async function createListing(title, deadline, media, description) {
         if (!response.ok) {
             throw {
                 status: response.status,
-                message: responseData.message || 'Failed to create listing',
+                message: responseData.message || 'Failed to create auction listing',
                 errors: responseData.errors || [],
             };
         }
-
         return responseData;
     } catch (error) {
         if (error instanceof TypeError) {
@@ -30,7 +36,6 @@ export async function createListing(title, deadline, media, description) {
                 errors: [],
             };
         }
-
         throw error;
     }
 }
