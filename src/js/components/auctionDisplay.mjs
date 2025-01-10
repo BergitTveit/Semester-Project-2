@@ -1,5 +1,5 @@
 export function displayAuctionListings(response) {
-    const container = document.getElementById('auction-listings-container');
+    const container = document.getElementById('auctionListingsContainer');
     container.innerHTML = '';
 
     const listings = response.data;
