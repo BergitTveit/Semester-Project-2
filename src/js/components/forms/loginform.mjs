@@ -1,6 +1,9 @@
-import { createButton } from '../components/buttons.mjs';
-import { createEmailInput, createPasswordInput } from '../components/forminputs.mjs';
-import { handleGoToRegisterPageClick, handleLoginButtonClick } from '../handlers/formhandlers.mjs';
+import { createButton } from '../common/buttons.mjs';
+import { createEmailInput, createPasswordInput } from '../common/forminputs.mjs';
+import {
+    handleGoToRegisterPageClick,
+    handleLoginButtonClick,
+} from '../../handlers/formhandlers.mjs';
 
 export function initializeLoginForm() {
     const form = document.getElementById('loginForm');

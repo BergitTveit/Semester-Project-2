@@ -1,16 +1,16 @@
-import { createButton } from '../components/buttons.mjs';
+import { createButton } from '../common/buttons.mjs';
 import {
     createEmailInput,
     createNameInput,
     createAvatarInput,
     createBioInput,
-} from '../components/forminputs.mjs';
+} from '../common/forminputs.mjs';
 import {
     handleCancelButtonClick,
     handleLogoutButtonClick,
     handleUpdateButtonClick,
-} from '../handlers/formhandlers.mjs';
-import { load } from '../utils/storage/load.mjs';
+} from '../../handlers/formhandlers.mjs';
+import { load } from '../../utils/storage/load.mjs';
 
 export function initializeSettingsForm() {
     const form = document.getElementById('settingsForm');

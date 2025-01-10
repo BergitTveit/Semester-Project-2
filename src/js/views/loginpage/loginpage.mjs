@@ -1,7 +1,7 @@
 //Import it correctly
 
 import { createBottomNavBar } from '../../components/navbar.mjs';
-import { initializeLoginForm } from '../../forms/loginform.mjs';
+import { initializeLoginForm } from '../../components/forms/loginform.mjs';
 
 async function loginPage() {
     await initializeLoginForm();

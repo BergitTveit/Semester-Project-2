@@ -1,13 +1,16 @@
 import {
     emailValidation,
+    listingDeadlineValidation,
+    listingDescriptionValidation,
+    listingTitleValidation,
     passwordValidation,
     urlValidation,
     usernameValidation,
-} from '../utils/validators.mjs';
+} from '../../utils/validators.mjs';
 
 //Create input field
 
-export function createInputField({ type, placeholder, validationFn, onInput }) {
+function createInputField({ type, placeholder, validationFn, onInput }) {
     const container = document.createElement('div');
     container.classList.add('relative', 'mb-4');
 
@@ -94,6 +97,33 @@ export function createAvatarInput(onInput) {
         type: 'url',
         placeholder: 'Avatar Image URL',
         validationFn: urlValidation,
+        onInput,
+    });
+}
+
+//////////////////////////////////////
+export function createTitleInput(onInput) {
+    return createInputField({
+        type: 'text',
+        placeholder: 'Listing Title',
+        validationFn: listingTitleValidation,
+        onInput,
+    });
+}
+
+export function createDeadlineInput(onInput) {
+    return createInputField({
+        type: 'date',
+        placeholder: 'Deadline (YYYY-MM-DD)',
+        validationFn: listingDeadlineValidation,
+        onInput,
+    });
+}
+export function createDescriptionInput(onInput) {
+    return createInputField({
+        type: 'text',
+        placeholder: 'Description (optional)',
+        validationFn: listingDescriptionValidation,
         onInput,
     });
 }
