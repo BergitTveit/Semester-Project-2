@@ -2,7 +2,7 @@ import { displayAuctionListings } from '../../components/auctionDisplay.mjs';
 import { getAuctionListings } from './list.mjs';
 
 export async function loadAndDisplayAuctionListings() {
-    const container = document.getElementById('auction-listings-container');
+    const container = document.getElementById('auctionListingsContainer');
     if (!container) return;
     container.innerHTML = `<p class="text-blue-500">Create LOADER for loading auction list-....</p>`;
 

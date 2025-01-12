@@ -13,3 +13,7 @@ export const urlValidation = value => {
     const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
     return urlRegex.test(value) ? null : 'Please enter a valid URL';
 };
+
+export const titleValidation = value => (value.trim() ? null : 'Title is required');
+
+export const dateValidation = value => (value ? null : 'End date is required');

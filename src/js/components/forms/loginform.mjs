@@ -1,9 +1,15 @@
-import { createButton } from '../components/buttons.mjs';
-import { createEmailInput, createPasswordInput } from '../components/forminputs.mjs';
-import { handleGoToRegisterPageClick, handleLoginButtonClick } from '../handlers/formhandlers.mjs';
+import { createButton } from '../common/buttons.mjs';
+import { createEmailInput, createPasswordInput } from '../common/forminputs.mjs';
+import {
+    handleGoToRegisterPageClick,
+    handleLoginButtonClick,
+} from '../../handlers/formhandlers.mjs';
+//rename the file tologinForm with camel case
 
 export function initializeLoginForm() {
     const form = document.getElementById('loginForm');
+    if (!form) return;
+
     const loginButton = createButton('Login', handleLoginClick);
     loginButton.id = 'loginButton';
     loginButton.disabled = true;
