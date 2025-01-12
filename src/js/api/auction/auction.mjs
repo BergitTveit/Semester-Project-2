@@ -1,5 +1,5 @@
 import { displayAuctionListings } from '../../components/auctionDisplay.mjs';
-import { getAuctionListings } from './list.mjs';
+import { getAuctionListings } from './getlistings.mjs';
 
 export async function loadAndDisplayAuctionListings() {
     const container = document.getElementById('auctionListingsContainer');
