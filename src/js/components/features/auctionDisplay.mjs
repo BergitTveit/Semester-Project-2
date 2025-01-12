@@ -1,5 +1,5 @@
-import { handleViewListingButtonClicked } from '../handlers/formhandlers.mjs';
-import { createButton } from './common/buttons.mjs';
+import { handleViewListingButtonClick } from '../../utils/handlers/listing-handlers/viewHandler.mjs';
+import { createButton } from '../common/buttons.mjs';
 
 export function displayAuctionListings(response) {
     const container = document.getElementById('auctionListingsContainer');
@@ -75,8 +75,10 @@ export function displayAuctionListings(response) {
         endDateElement.textContent = `End Date: ${new Date(listing.endsAt).toLocaleDateString()}`;
         endDateElement.classList.add('text-gray-600', 'mb-2');
 
-        const viewListingButton = createButton('View', () =>
-            handleViewListingButtonClicked(listing.id)
+        const viewListingButton = createButton(
+            'View',
+            () => handleViewListingButtonClick(listing.id),
+            'button'
         );
 
         listingElement.appendChild(titleElement);

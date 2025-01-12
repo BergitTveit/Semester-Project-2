@@ -4,66 +4,49 @@ import {
     createListingMediaInput,
     createTitleInput,
 } from '../common/forminputs.mjs';
-import { handleCreateListingSubmit } from '../../handlers/formhandlers.mjs';
-import { dateValidation, titleValidation } from '../../utils/validators.mjs';
 import { createButton } from '../common/buttons.mjs';
+import { handleCreateListingSubmit } from '../../utils/handlers/listing-handlers/createHandler.mjs';
 
 export function initializeCreateListingForm() {
     const form = document.getElementById('createListingForm');
     if (!form) return;
 
-    const submitButton = createButton('Create Auction', handleCreateClick);
-    submitButton.id = 'createListingButton';
-    submitButton.disabled = true;
+    const addListingButton = createButton('Create Auction', null, 'submit');
+    addListingButton.id = 'createListingButton';
+    addListingButton.disabled = true;
 
-    let titleInput, dateInput, mediaInput, descriptionInput;
+    const titleInput = createTitleInput();
+    const dateInput = createDateInput();
+    const mediaInput = createListingMediaInput();
+    const descriptionInput = createDescriptionInput();
 
     function checkFormValidity() {
-        if (!titleInput || !dateInput) return;
+        const isTitleValid = titleInput.querySelector('input').value.trim() !== '';
+        const isDateValid = dateInput.querySelector('input').value.trim() !== '';
 
-        const titleError = titleInput.querySelector('.text-red-500')?.textContent;
-        const dateError = dateInput.querySelector('.text-red-500')?.textContent;
+        const isFormValid = isTitleValid && isDateValid;
 
-        const isFormValid =
-            !(titleError || dateError) &&
-            titleInput.querySelector('input').value &&
-            dateInput.querySelector('input').value;
-
-        submitButton.disabled = !isFormValid;
-        submitButton.classList.toggle('opacity-50', !isFormValid);
-        submitButton.classList.toggle('cursor-not-allowed', !isFormValid);
+        addListingButton.disabled = !isFormValid;
+        addListingButton.classList.toggle('opacity-50', !isFormValid);
+        addListingButton.classList.toggle('cursor-not-allowed', !isFormValid);
     }
 
-    function handleCreateClick() {
-        if (!submitButton.disabled) {
+    titleInput.querySelector('input').addEventListener('input', checkFormValidity);
+    dateInput.querySelector('input').addEventListener('input', checkFormValidity);
+
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!addListingButton.disabled) {
             const formData = {
-                title: titleInput.querySelector('input').value,
-                endsAt: dateInput.querySelector('input').value,
-                media: mediaInput.querySelector('input').value || null,
-                description: descriptionInput.querySelector('textarea').value || null,
+                title: titleInput.querySelector('input').value.trim(),
+                description: descriptionInput.querySelector('textarea')?.value?.trim() || '',
+                media: mediaInput.querySelector('input')?.value?.trim() || '',
+                endsAt: dateInput.querySelector('input').value.trim(),
             };
-
-            const titleError = titleValidation(formData.title);
-            const dateError = dateValidation(formData.endsAt);
-
-            if (titleError || dateError) {
-                return;
-            }
-
-            handleCreateListingSubmit(formData);
+            await handleCreateListingSubmit(formData);
         }
-    }
+    });
 
-    titleInput = createTitleInput(() => setTimeout(checkFormValidity, 0));
-    dateInput = createDateInput(() => setTimeout(checkFormValidity, 0));
-    mediaInput = createListingMediaInput();
-    descriptionInput = createDescriptionInput();
-
-    form.appendChild(titleInput);
-    form.appendChild(dateInput);
-    form.appendChild(mediaInput);
-    form.appendChild(descriptionInput);
-    form.appendChild(submitButton);
-
+    form.append(titleInput, dateInput, mediaInput, descriptionInput, addListingButton);
     checkFormValidity();
 }

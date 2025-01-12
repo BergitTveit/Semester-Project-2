@@ -1,5 +1,5 @@
-import { handleSettingsButtonClick } from '../handlers/formhandlers.mjs';
-import { createButton } from './common/buttons.mjs';
+import { handleSettingsButtonClick } from '../../utils/handlers/navigation-handlers/routerHandlers.mjs';
+import { createButton } from '../common/buttons.mjs';
 
 export function displayProfile(userProfile) {
     const container = document.getElementById('profile-container');
@@ -42,6 +42,6 @@ export function displayProfile(userProfile) {
         profileElement.appendChild(bioElement);
     }
 
-    profileElement.appendChild(createButton('Settings', handleSettingsButtonClick));
+    profileElement.appendChild(createButton('Settings', handleSettingsButtonClick, 'button'));
     container.appendChild(profileElement);
 }

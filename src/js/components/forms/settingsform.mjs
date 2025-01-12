@@ -5,24 +5,24 @@ import {
     createMediaInput,
     createBioInput,
 } from '../common/forminputs.mjs';
-import {
-    handleCancelButtonClick,
-    handleLogoutButtonClick,
-    handleUpdateButtonClick,
-} from '../../handlers/formhandlers.mjs';
+
 import { load } from '../../utils/storage/load.mjs';
+import { handleUpdateButtonClick } from '../../utils/handlers/profile-handlers/updateHandler.mjs';
+import { handleLogoutButtonClick } from '../../utils/handlers/auth-handlers/logoutHandler.mjs';
+import { handleCancelButtonClick } from '../../utils/handlers/navigation-handlers/routerHandlers.mjs';
 
 export function initializeSettingsForm() {
     const form = document.getElementById('settingsForm');
     if (!form) return;
 
-    const updateButton = createButton('Save Changes', handleUpdateButtonClick);
+    const updateButton = createButton('Save Changes', null, 'submit');
     updateButton.id = 'updateButton';
+    updateButton.disabled = true;
 
-    const logoutButton = createButton('Logout', handleLogoutButtonClick);
+    const logoutButton = createButton('Logout', handleLogoutButtonClick, 'button');
     logoutButton.id = 'logoutButton';
 
-    const cancelButton = createButton('Cancel', handleCancelButtonClick);
+    const cancelButton = createButton('Cancel', handleCancelButtonClick, 'button');
     cancelButton.id = 'cancelButton';
 
     const nameInput = createNameInput();
@@ -38,6 +38,30 @@ export function initializeSettingsForm() {
         avatarInput.querySelector('input').value = profile.avatar?.url || '';
     }
 
+    function checkFormValidity() {
+        const nameValid = nameInput.querySelector('input').value.trim() !== '';
+        const emailValid = emailInput.querySelector('input').value.trim() !== '';
+        const avatarValid = avatarInput.querySelector('input').value.trim() !== '';
+
+        const isFormValid = nameValid && emailValid && avatarValid;
+
+        updateButton.disabled = !isFormValid;
+        updateButton.classList.toggle('opacity-50', !isFormValid);
+        updateButton.classList.toggle('cursor-not-allowed', !isFormValid);
+    }
+
+    nameInput.querySelector('input').addEventListener('input', checkFormValidity);
+    emailInput.querySelector('input').addEventListener('input', checkFormValidity);
+    avatarInput.querySelector('input').addEventListener('input', checkFormValidity);
+
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+
+        if (!updateButton.disabled) {
+            handleUpdateButtonClick(event);
+        }
+    });
+
     form.appendChild(nameInput);
     form.appendChild(emailInput);
     form.appendChild(bioInput);
@@ -45,4 +69,6 @@ export function initializeSettingsForm() {
     form.appendChild(cancelButton);
     form.appendChild(updateButton);
     form.appendChild(logoutButton);
+
+    checkFormValidity();
 }

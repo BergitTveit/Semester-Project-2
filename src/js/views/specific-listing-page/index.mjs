@@ -1,5 +1,5 @@
-import { createBottomNavBar } from '../../components/navbar.mjs';
-import { loadSpecificListing } from './loadSpesificListing.mjs';
+import { createBottomNavBar } from '../../components/common/navbar.mjs';
+import { loadSpecificListing } from '../../utils/display-loaders/spesificListingLoader.mjs';
 
 async function specificListingPage() {
     await loadSpecificListing();

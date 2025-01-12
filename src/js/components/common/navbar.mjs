@@ -1,5 +1,5 @@
-import { redirectToProfileOrLogin } from '../utils/storage/checkLoginStatus.mjs';
-import { createNavButton } from './common/buttons.mjs';
+import { redirectToProfileOrLogin } from '../../utils/storage/checkLoginStatus.mjs';
+import { createNavButton } from './buttons.mjs';
 
 export function createBottomNavBar() {
     const navBar = document.createElement('nav');

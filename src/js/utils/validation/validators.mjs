@@ -16,4 +16,15 @@ export const urlValidation = value => {
 
 export const titleValidation = value => (value.trim() ? null : 'Title is required');
 
-export const dateValidation = value => (value ? null : 'End date is required');
+export const dateValidation = value => {
+    const parsedDate = new Date(value);
+    if (isNaN(parsedDate.getTime())) {
+        return 'Invalid date format';
+    }
+    const currentDate = new Date();
+    currentDate.setSeconds(0, 0);
+    if (parsedDate < currentDate) {
+        return 'End date must be in the future';
+    }
+    return null;
+};

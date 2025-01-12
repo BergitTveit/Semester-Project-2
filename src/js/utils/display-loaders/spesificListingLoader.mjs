@@ -1,5 +1,5 @@
 import { getSpecificListing } from '../../api/auction/getlistings.mjs';
-import { displaySpecificListing } from '../../components/spesificListingDisplay.mjs';
+import { displaySpecificListing } from '../../components/features/spesificListingDisplay.mjs';
 
 export async function loadSpecificListing() {
     const container = document.getElementById('listingContainer');

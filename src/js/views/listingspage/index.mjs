@@ -1,10 +1,10 @@
-import { loadAndDisplayAuctionListings } from '../../api/auction/auction.mjs';
 import { initializeCreateListingForm } from '../../components/forms/createListingForm.mjs';
-import { createBottomNavBar } from '../../components/navbar.mjs';
+import { createBottomNavBar } from '../../components/common/navbar.mjs';
+// import { loadAndDisplayAuctionListings } from '../../utils/display-loaders/listingLoader.mjs';
 
 async function auctionPage() {
     await initializeCreateListingForm();
-    await loadAndDisplayAuctionListings();
+    // await loadAndDisplayAuctionListings();
     await createBottomNavBar();
 }
 

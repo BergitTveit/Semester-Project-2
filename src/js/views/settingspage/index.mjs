@@ -1,5 +1,5 @@
+import { createBottomNavBar } from '../../components/common/navbar.mjs';
 import { initializeSettingsForm } from '../../components/forms/settingsform.mjs';
-import { createBottomNavBar } from '../../components/navbar.mjs';
 
 async function settingsPage() {
     await initializeSettingsForm();

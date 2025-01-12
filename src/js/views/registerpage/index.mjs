@@ -1,5 +1,5 @@
+import { createBottomNavBar } from '../../components/common/navbar.mjs';
 import { initializeRegisterForm } from '../../components/forms/registerform.mjs';
-import { createBottomNavBar } from '../../components/navbar.mjs';
 
 async function registerPage() {
     await initializeRegisterForm();

@@ -1,13 +1,16 @@
-export function createButton(text, onClick) {
+export function createButton(text, onClick = null, type = 'button') {
     const button = document.createElement('button');
     button.textContent = text;
+    button.type = type;
     button.classList.add('btn', 'px-4', 'py-2', 'bg-blue-500', 'text-white', 'rounded');
 
-    button.addEventListener('click', event => {
-        if (!button.disabled) {
-            onClick(event);
-        }
-    });
+    if (onClick) {
+        button.addEventListener('click', event => {
+            if (!button.disabled) {
+                onClick(event);
+            }
+        });
+    }
 
     return button;
 }

@@ -5,7 +5,7 @@ import {
     titleValidation,
     urlValidation,
     usernameValidation,
-} from '../../utils/validators.mjs';
+} from '../../utils/validation/validators.mjs';
 
 //Create input field
 
@@ -24,6 +24,7 @@ function createInputField({ type, placeholder, validationFn, onInput }) {
 
     function validateInput() {
         const error = validationFn ? validationFn(input.value) : null;
+
         if (error) {
             errorMessage.textContent = error;
             errorMessage.style.display = 'block';
