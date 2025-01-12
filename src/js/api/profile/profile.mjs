@@ -5,7 +5,7 @@ import { load } from '../../utils/storage/load.mjs';
 export async function loadAndDisplayProfile() {
     const container = document.getElementById('profile-container');
     if (!container) return;
-    // check loader and order syntax
+
     container.innerHTML = `<p class="text-blue-500">Create LOADER for loading auction list-....</p>`;
     try {
         const userName =
@@ -23,4 +23,3 @@ export async function loadAndDisplayProfile() {
 }
 
 document.addEventListener('DOMContentLoaded', loadAndDisplayProfile);
-// add consistent error handling for UI

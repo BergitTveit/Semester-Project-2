@@ -1,3 +1,6 @@
+import { handleSettingsButtonClick } from '../handlers/formhandlers.mjs';
+import { createButton } from './common/buttons.mjs';
+
 export function displayProfile(userProfile) {
     const container = document.getElementById('profile-container');
     container.innerHTML = '';
@@ -39,5 +42,6 @@ export function displayProfile(userProfile) {
         profileElement.appendChild(bioElement);
     }
 
+    profileElement.appendChild(createButton('Settings', handleSettingsButtonClick));
     container.appendChild(profileElement);
 }
