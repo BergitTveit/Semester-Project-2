@@ -12,7 +12,8 @@ export function displaySpecificListing(response) {
         'rounded',
         'shadow',
         'mb-4',
-        'bg-white'
+        'bg-white',
+        'w-full'
     );
 
     if (listing.media && listing.media.length > 0) {
