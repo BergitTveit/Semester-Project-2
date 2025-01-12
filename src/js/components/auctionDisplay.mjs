@@ -1,3 +1,6 @@
+import { handleViewListingButtonClicked } from '../handlers/formhandlers.mjs';
+import { createButton } from './common/buttons.mjs';
+
 export function displayAuctionListings(response) {
     const container = document.getElementById('auctionListingsContainer');
     container.innerHTML = '';
@@ -72,11 +75,15 @@ export function displayAuctionListings(response) {
         endDateElement.textContent = `End Date: ${new Date(listing.endsAt).toLocaleDateString()}`;
         endDateElement.classList.add('text-gray-600', 'mb-2');
 
+        const viewListingButton = createButton('View', () =>
+            handleViewListingButtonClicked(listing.id)
+        );
+
         listingElement.appendChild(titleElement);
         listingElement.appendChild(descriptionElement);
         listingElement.appendChild(startingPriceElement);
         listingElement.appendChild(endDateElement);
-
+        listingElement.appendChild(viewListingButton);
         container.appendChild(listingElement);
     });
 }
