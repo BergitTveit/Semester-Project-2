@@ -21,5 +21,3 @@ export async function loadAndDisplayProfile() {
         window.location.href = `/index.html`;
     }
 }
-
-document.addEventListener('DOMContentLoaded', loadAndDisplayProfile);

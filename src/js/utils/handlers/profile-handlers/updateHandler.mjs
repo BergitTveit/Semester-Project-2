@@ -19,6 +19,8 @@ export async function handleUpdateButtonClick(event) {
         const updatedProfile = await updateProfile(profileData);
         save('profile', updatedProfile.data);
         alert('Profile updated successfully!');
+
+        window.location.href = `/pages/profile/index.html?name=${updatedProfile.name}`;
     } catch (error) {
         console.error('Error updating profile:', error);
         alert('Failed to update profile. Please try again.');

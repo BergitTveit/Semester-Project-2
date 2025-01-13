@@ -16,4 +16,3 @@ export async function loadAndDisplayAuctionListings() {
         `;
     }
 }
-// add consistent error handling for UI
