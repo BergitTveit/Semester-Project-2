@@ -1,0 +1,49 @@
+import { createButton } from '../common/buttons.mjs';
+import { displayBidElement } from './bidElement.mjs';
+import { handleShowAllBids } from '../../utils/handlers/listing-handlers/showBidsHandler.mjs';
+
+export function displayListingBids(response) {
+    const bids = response.data;
+    const containerElement = document.getElementById('bidContainer');
+    if (!containerElement) return;
+
+    const bidsSection = document.createElement('div');
+    bidsSection.classList.add('border', 'p-4', 'rounded', 'shadow', 'mb-4', 'bg-white', 'w-full');
+
+    const bidsTitle = document.createElement('h2');
+    bidsTitle.textContent = 'Bid History';
+    bidsTitle.classList.add('text-2xl', 'font-bold', 'mb-4');
+    bidsSection.appendChild(bidsTitle);
+
+    if (!bids?.length) {
+        const noBidsMessage = document.createElement('p');
+        noBidsMessage.textContent = 'No bids yet on this listing';
+        noBidsMessage.classList.add('text-gray-600', 'italic', 'p-4');
+        bidsSection.appendChild(noBidsMessage);
+        containerElement.appendChild(bidsSection);
+        return;
+    }
+
+    const sortedBids = [...bids].sort((a, b) => b.amount - a.amount);
+    const bidsList = document.createElement('div');
+    bidsList.classList.add('space-y-3');
+
+    // Show initial 3 highest bids
+    sortedBids.slice(0, 3).forEach(bid => {
+        bidsList.appendChild(displayBidElement(bid));
+    });
+
+    bidsSection.appendChild(bidsList);
+
+    // Add Show More button if there are more than 3 bids
+    if (sortedBids.length > 3) {
+        let showingAll = false;
+        const showMoreButton = createButton('Show All Bids', event => {
+            showingAll = handleShowAllBids(event, bidsList, sortedBids, showingAll);
+        });
+        showMoreButton.classList.add('mt-4', 'w-full');
+        bidsSection.appendChild(showMoreButton);
+    }
+
+    containerElement.appendChild(bidsSection);
+}

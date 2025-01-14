@@ -63,7 +63,40 @@ export async function getSpecificListing(listingId) {
         throw error;
     }
 }
-///
+
+//////
+export async function getListingBids(listingId) {
+    const url = `${API_BASE}${API_AUCTION_LISTINGS}/${listingId}?_bids=true`; // Add _bids=true to get bids
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: headers(false, true),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            throw {
+                status: response.status,
+                message: data.message || 'Failed to fetch bids',
+                errors: data.errors || [],
+            };
+        }
+        return {
+            data: data.data.bids || [],
+        };
+    } catch (error) {
+        if (error instanceof TypeError) {
+            throw {
+                status: 0,
+                message: 'Network error - please check your connection',
+                errors: [],
+            };
+        }
+        throw error;
+    }
+}
+
+///////
+
 export async function getListingsAccordingToSearch(searchText) {
     const postsEndpoint = `${API_BASE}${API_AUCTION_LISTINGS}/search?q=${encodeURIComponent(searchText)}`;
 

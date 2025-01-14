@@ -1,4 +1,5 @@
-import { getSpecificListing } from '../../api/auction/getlistings.mjs';
+import { getListingBids, getSpecificListing } from '../../api/auction/getlistings.mjs';
+import { displayListingBids } from '../../components/features/bidsDisplay.mjs';
 import { displaySpecificListing } from '../../components/features/spesificListingDisplay.mjs';
 
 export async function loadSpecificListing() {
@@ -13,13 +14,11 @@ export async function loadSpecificListing() {
 
         const listingData = await getSpecificListing(listingId);
         displaySpecificListing(listingData);
+
+        const bidsData = await getListingBids(listingId);
+        displayListingBids(bidsData);
     } catch (error) {
         console.error('Error loading listing:', error);
         container.innerHTML = `<p class="text-red-500">Failed to load listing. Redirecting...</p>`;
-        // setTimeout(() => {
-        //     window.location.href = `/index.html`;
-        // }, 2000);
     }
 }
-
-document.addEventListener('DOMContentLoaded', loadSpecificListing);
