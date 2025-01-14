@@ -1,11 +1,20 @@
 import { createButton } from '../common/buttons.mjs';
 import { displayBidElement } from './bidElement.mjs';
 import { handleShowAllBids } from '../../utils/handlers/listing-handlers/showBidsHandler.mjs';
+import { isLoggedIn } from '../../utils/storage/checkLoginStatus.mjs';
 
 export function displayListingBids(response) {
     const bids = response.data;
     const containerElement = document.getElementById('bidContainer');
     if (!containerElement) return;
+
+    if (!isLoggedIn()) {
+        const loginMessage = document.createElement('div');
+        loginMessage.classList.add('text-center', 'p-4', 'bg-gray-50', 'rounded', 'border');
+        loginMessage.textContent = 'Please log in to view bids on this listing';
+        containerElement.appendChild(loginMessage);
+        return;
+    }
 
     const bidsSection = document.createElement('div');
     bidsSection.classList.add('border', 'p-4', 'rounded', 'shadow', 'mb-4', 'bg-white', 'w-full');
