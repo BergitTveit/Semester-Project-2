@@ -153,3 +153,11 @@ export function createBidAmountInput(onInput) {
         onInput,
     });
 }
+
+export function createSearchInput(onInput) {
+    return createInputField({
+        type: 'search',
+        placeholder: 'Search listings...',
+        onInput,
+    });
+}
