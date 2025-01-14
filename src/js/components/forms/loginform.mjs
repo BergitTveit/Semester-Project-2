@@ -36,7 +36,6 @@ export function initializeLoginForm() {
         }
     });
 
-    // Cleaner append using modern syntax
     form.append(emailInput, passwordInput, registerButton, loginButton);
 
     checkFormValidity();
