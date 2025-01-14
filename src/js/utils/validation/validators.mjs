@@ -28,3 +28,8 @@ export const dateValidation = value => {
     }
     return null;
 };
+
+export const bidAmountValidation = value => {
+    if (!value || value <= 0) return 'Bid amount must be greater than 0';
+    return null;
+};

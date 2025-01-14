@@ -1,4 +1,5 @@
 import {
+    bidAmountValidation,
     dateValidation,
     emailValidation,
     passwordValidation,
@@ -142,4 +143,13 @@ export function createDescriptionInput(onInput) {
 
     container.appendChild(textarea);
     return container;
+}
+
+export function createBidAmountInput(onInput) {
+    return createInputField({
+        type: 'number',
+        placeholder: 'Your bid amount ($)',
+        validationFn: bidAmountValidation,
+        onInput,
+    });
 }
