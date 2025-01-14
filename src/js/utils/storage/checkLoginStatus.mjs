@@ -9,3 +9,8 @@ export function redirectToProfileOrLogin() {
         return '/pages/login/index.html';
     }
 }
+
+export function isLoggedIn() {
+    const token = load('token');
+    return Boolean(token);
+}
