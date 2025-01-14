@@ -37,14 +37,12 @@ export function displayListingBids(response) {
     const bidsList = document.createElement('div');
     bidsList.classList.add('space-y-3');
 
-    // Show initial 3 highest bids
     sortedBids.slice(0, 3).forEach(bid => {
         bidsList.appendChild(displayBidElement(bid));
     });
 
     bidsSection.appendChild(bidsList);
 
-    // Add Show More button if there are more than 3 bids
     if (sortedBids.length > 3) {
         let showingAll = false;
         const showMoreButton = createButton('Show All Bids', event => {
