@@ -1,3 +1,5 @@
+import { initializeBidForm } from '../forms/addBidForm.mjs';
+
 export function displaySpecificListing(response) {
     const container = document.getElementById('listingContainer');
     container.innerHTML = '';
@@ -72,6 +74,9 @@ export function displaySpecificListing(response) {
     endDateElement.textContent = `End Date: ${new Date(listing.endsAt).toLocaleDateString()}`;
     endDateElement.classList.add('text-gray-600', 'mb-2');
 
+    const bidForm = initializeBidForm(listing);
+
+    spesificListingElement.appendChild(bidForm);
     spesificListingElement.appendChild(titleElement);
     spesificListingElement.appendChild(descriptionElement);
     spesificListingElement.appendChild(bidCountElement);
