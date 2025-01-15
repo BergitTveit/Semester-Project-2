@@ -3,15 +3,23 @@ import { createButton } from '../common/buttons.mjs';
 import { displayAuctionElement } from './listingElement.mjs';
 
 export function displayAuctionListings(response) {
-    const listingsData = Array.isArray(response) ? response : response.data;
+    if (!response?.data) return;
+    const listingsData = response.data;
+
     const container = document.getElementById('auctionListingsContainer');
     if (!container) return;
 
     container.innerHTML = '';
 
-    if (!listingsData || listingsData.length === 0) {
+    if (listingsData.length === 0) {
+        container.innerHTML = `
+            <div class="text-center p-4">
+                <p class="text-gray-500">No auction listings available at the moment.</p>
+            </div>
+        `;
         return;
     }
+
     const sortedListings = [...listingsData].sort(
         (a, b) => new Date(b.endsAt) - new Date(a.endsAt)
     );

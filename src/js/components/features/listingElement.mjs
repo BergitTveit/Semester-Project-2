@@ -2,6 +2,8 @@ import { createButton } from '../common/buttons.mjs';
 import { handleViewListingButtonClick } from '../../utils/handlers/listing-handlers/viewHandler.mjs';
 
 export function displayAuctionElement(listing) {
+    if (!listing) return null;
+
     const listingElement = document.createElement('div');
     listingElement.classList.add(
         'auction-listing',
@@ -46,7 +48,7 @@ export function displayAuctionElement(listing) {
         };
 
         image.src = listing.media[0].url;
-        image.alt = listing.media[0].alt || listing.title;
+        image.alt = listing.media[0].alt || listing.title || 'Auction listing image';
         mediaContainer.appendChild(image);
         listingElement.appendChild(mediaContainer);
     }
@@ -56,9 +58,10 @@ export function displayAuctionElement(listing) {
     titleElement.classList.add('text-xl', 'font-bold', 'mb-2');
 
     const descriptionElement = document.createElement('p');
-    descriptionElement.textContent = listing.description;
+    descriptionElement.textContent = listing.description || 'No description available';
     descriptionElement.classList.add('text-gray-700', 'mb-2');
 
+    //Change to amount on last bid.
     const startingPriceElement = document.createElement('p');
     startingPriceElement.textContent = `Last Bid: ${listing._count?.bids}`;
     startingPriceElement.classList.add('text-gray-600', 'mb-2');

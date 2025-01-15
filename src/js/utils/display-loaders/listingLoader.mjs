@@ -8,15 +8,15 @@ import { AuctionErrorTypes } from '../errors/errorTypes.mjs';
 export async function loadAndDisplayAuctionListings() {
     const container = document.getElementById('auctionListingsContainer');
     if (!container) return;
+
     clearError(container);
     container.innerHTML = `<p class="text-blue-500">Create LOADER for loading auction list-....</p>`;
 
     try {
         const listings = await getAuctionListings();
-        if (!listings || listings.length === 0) {
-            throw new AuctionError(AuctionErrorTypes.LISTING_NOT_FOUND, 404, {
-                message: AuctionErrorMessages[AuctionErrorTypes.LISTING_NOT_FOUND],
-            });
+
+        if (!listings) {
+            throw new AuctionError(AuctionErrorTypes.LISTING_NOT_FOUND, 404);
         }
         displayAuctionListings(listings);
     } catch (error) {
@@ -30,7 +30,7 @@ export async function loadAndDisplayAuctionListings() {
                     window.location.href = '/index.html';
                 }, 3000);
             } else {
-                container.innerHTML = `<p class="text-red-500">${errorMessage}</p>`;
+                displayError(error, container);
             }
         } else {
             displayError(
