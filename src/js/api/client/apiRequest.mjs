@@ -1,3 +1,4 @@
+import { handleApiError } from '../../utils/errors/errorHandlers.mjs';
 import { headers } from '../../utils/headers.mjs';
 
 export async function apiRequest(url, method = 'GET', body = null, needsAuth = false) {
@@ -24,13 +25,6 @@ export async function apiRequest(url, method = 'GET', body = null, needsAuth = f
 
         return data;
     } catch (error) {
-        if (error instanceof TypeError) {
-            throw {
-                status: 0,
-                message: 'Network error - please check your connection',
-                errors: [],
-            };
-        }
-        throw error;
+        throw handleApiError(error);
     }
 }
