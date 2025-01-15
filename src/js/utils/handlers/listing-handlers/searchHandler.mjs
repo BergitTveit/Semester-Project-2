@@ -1,15 +1,12 @@
-import { getListingsAccordingToSearch } from '../../../api/auction/getlistings.mjs';
-import { displayAuctionListings } from '../../../components/features/auctionDisplay.mjs';
+import { loadAndDisplaySearchResults } from '../../display-loaders/searchResultLoader.mjs';
 
 export async function handleSearch(event) {
     event.preventDefault();
     const searchInput = event.target.querySelector('input');
-    const searchText = searchInput.value.trim();
+    if (!searchInput) return;
 
-    try {
-        const searchResults = await getListingsAccordingToSearch(searchText);
-        displayAuctionListings({ data: searchResults });
-    } catch (error) {
-        console.error('Search failed:', error);
-    }
+    const searchText = searchInput.value.trim();
+    if (!searchText) return;
+
+    await loadAndDisplaySearchResults(searchText);
 }

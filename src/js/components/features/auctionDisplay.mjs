@@ -3,21 +3,18 @@ import { createButton } from '../common/buttons.mjs';
 import { displayAuctionElement } from './listingElement.mjs';
 
 export function displayAuctionListings(response) {
-    const listings = response.data;
+    const listingsData = Array.isArray(response) ? response : response.data;
     const container = document.getElementById('auctionListingsContainer');
     if (!container) return;
+
     container.innerHTML = '';
 
-    if (!listings?.length) {
-        const noListingsMessage = document.createElement('p');
-        noListingsMessage.textContent = 'No listings available';
-        noListingsMessage.classList.add('text-gray-600', 'italic', 'p-4', 'text-center');
-        container.appendChild(noListingsMessage);
+    if (!listingsData || listingsData.length === 0) {
         return;
     }
-
-    const sortedListings = [...listings].sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt));
-
+    const sortedListings = [...listingsData].sort(
+        (a, b) => new Date(b.endsAt) - new Date(a.endsAt)
+    );
     const listingsContainer = document.createElement('div');
     listingsContainer.classList.add('space-y-4');
 
@@ -39,7 +36,6 @@ export function displayAuctionListings(response) {
             );
         });
         showMoreButton.classList.add('mt-4', 'w-full');
-
         container.appendChild(showMoreButton);
     }
 }
