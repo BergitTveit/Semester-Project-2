@@ -1,5 +1,5 @@
-import { API_BASE, API_PROFILE } from '../../utils/constants.mjs';
-import { headers } from '../../utils/headers.mjs';
+import { API_BASE, API_PROFILE } from '../client/endpoints.mjs';
+import { apiRequest } from '../client/apiRequest.mjs';
 
 export async function updateProfile(profileData) {
     const { name, ...updateData } = profileData;
@@ -19,33 +19,5 @@ export async function updateProfile(profileData) {
 
     const url = `${API_BASE}${API_PROFILE}${name}`;
 
-    try {
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: headers(true, true),
-            body: JSON.stringify(updateData),
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw {
-                status: response.status,
-                message: `Failed to update profile: ${errorData.message || 'Unknown error'}`,
-                errors: errorData.errors || [],
-            };
-        }
-
-        const updatedProfileData = await response.json();
-        return updatedProfileData;
-    } catch (error) {
-        if (error instanceof TypeError) {
-            throw {
-                status: 0,
-                message: 'Network error - please check your connection',
-                errors: [],
-            };
-        }
-        throw error;
-    }
+    return apiRequest(url, 'PUT', updateData, true);
 }
-// add class for api and other for validatioin,and for network fault

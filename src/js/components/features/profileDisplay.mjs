@@ -1,7 +1,9 @@
 import { handleSettingsButtonClick } from '../../utils/handlers/navigation-handlers/routerHandlers.mjs';
 import { createButton } from '../common/buttons.mjs';
 
-export function displayProfile(userProfile) {
+export function displayProfile(response) {
+    const userProfile = response.data;
+
     const container = document.getElementById('profile-container');
     container.innerHTML = '';
 

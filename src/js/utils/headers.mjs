@@ -1,5 +1,5 @@
-import { load } from '../utils/storage/load.mjs';
-import { API_KEY } from './constants.mjs';
+import { API_KEY } from '../api/client/endpoints.mjs';
+import { load } from './storage/load.mjs';
 
 export function headers(hasBody = false, needsAuth = false) {
     const headers = new Headers();

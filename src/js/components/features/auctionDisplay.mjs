@@ -16,7 +16,7 @@ export function displayAuctionListings(response) {
         return;
     }
 
-    const sortedListings = [...listings].sort((a, b) => new Date(b.created) - new Date(a.created));
+    const sortedListings = [...listings].sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt));
 
     const listingsContainer = document.createElement('div');
     listingsContainer.classList.add('space-y-4');

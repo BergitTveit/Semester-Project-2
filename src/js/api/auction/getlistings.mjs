@@ -1,130 +1,26 @@
-import { API_BASE, API_AUCTION_LISTINGS } from '../../utils/constants.mjs';
-import { headers } from '../../utils/headers.mjs';
+import { API_AUCTION_LISTINGS, API_BASE } from '../client/endpoints.mjs';
+import { apiRequest } from '../client/apiRequest.mjs';
 
 export async function getAuctionListings() {
     const url = `${API_BASE}${API_AUCTION_LISTINGS}`;
-
-    try {
-        const response = await fetch(url, {
-            headers: headers(false, false),
-        });
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw {
-                status: response.status,
-                message: data.message || 'Failed to fetch auction listings',
-                errors: data.errors || [],
-            };
-        }
-
-        return data;
-    } catch (error) {
-        if (error instanceof TypeError) {
-            throw {
-                status: 0,
-                message: 'Network error - please check your connection',
-                errors: [],
-            };
-        }
-
-        throw error;
-    }
+    return apiRequest(url, 'GET', null, false);
 }
-// add error class for api
+
 export async function getSpecificListing(listingId) {
     const url = `${API_BASE}${API_AUCTION_LISTINGS}/${listingId}`;
-
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: headers(false, false),
-        });
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw {
-                status: response.status,
-                message: data.message || 'Failed to fetch listing details',
-                errors: data.errors || [],
-            };
-        }
-
-        return data;
-    } catch (error) {
-        if (error instanceof TypeError) {
-            throw {
-                status: 0,
-                message: 'Network error - please check your connection',
-                errors: [],
-            };
-        }
-
-        throw error;
-    }
+    return apiRequest(url, 'GET', null, false);
 }
 
-//////
 export async function getListingBids(listingId) {
     const url = `${API_BASE}${API_AUCTION_LISTINGS}/${listingId}?_bids=true`; // Add _bids=true to get bids
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: headers(false, true),
-        });
-        const data = await response.json();
-        if (!response.ok) {
-            throw {
-                status: response.status,
-                message: data.message || 'Failed to fetch bids',
-                errors: data.errors || [],
-            };
-        }
-        return {
-            data: data.data.bids || [],
-        };
-    } catch (error) {
-        if (error instanceof TypeError) {
-            throw {
-                status: 0,
-                message: 'Network error - please check your connection',
-                errors: [],
-            };
-        }
-        throw error;
-    }
+    const data = await apiRequest(url, 'GET', null, true);
+    return {
+        data: data.data.bids || [],
+    };
 }
 
-///////
-
 export async function getListingsAccordingToSearch(searchText) {
-    const postsEndpoint = `${API_BASE}${API_AUCTION_LISTINGS}/search?q=${encodeURIComponent(searchText)}`;
-
-    try {
-        const response = await fetch(postsEndpoint, {
-            headers: headers(false, false),
-        });
-
-        if (!response.ok) {
-            const data = await response.json();
-            throw {
-                status: response.status,
-                message: data.message || 'Failed to fetch auction listings',
-                errors: data.errors || [],
-            };
-        }
-
-        const listingsData = await response.json();
-
-        return listingsData.data;
-    } catch (error) {
-        if (error instanceof TypeError) {
-            throw {
-                status: 0,
-                message: 'Network error - please check your connection',
-                errors: [],
-            };
-        }
-        throw error;
-    }
+    const url = `${API_BASE}${API_AUCTION_LISTINGS}/search?q=${encodeURIComponent(searchText)}`;
+    const data = await apiRequest(url, 'GET', null, false);
+    return data.data;
 }
