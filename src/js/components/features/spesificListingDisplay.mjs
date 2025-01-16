@@ -1,10 +1,13 @@
 import { initializeBidForm } from '../forms/addBidForm.mjs';
 
 export function displaySpecificListing(response) {
-    const container = document.getElementById('listingContainer');
-    container.innerHTML = '';
-
+    if (!response?.data) return;
     const listing = response.data;
+
+    const container = document.getElementById('listingContainer');
+    if (!container) return;
+
+    container.innerHTML = '';
 
     const spesificListingElement = document.createElement('div');
     spesificListingElement.classList.add(
