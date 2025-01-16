@@ -2,9 +2,12 @@ import { handleSettingsButtonClick } from '../../utils/handlers/navigation-handl
 import { createButton } from '../common/buttons.mjs';
 
 export function displayProfile(response) {
+    if (!response?.data) return;
     const userProfile = response.data;
 
     const container = document.getElementById('profile-container');
+    if (!container) return;
+
     container.innerHTML = '';
 
     const profileElement = document.createElement('div');
@@ -20,11 +23,51 @@ export function displayProfile(response) {
     );
 
     if (userProfile.avatar?.url) {
+        const avatarContainer = document.createElement('div');
+        avatarContainer.classList.add('w-24', 'h-24', 'mr-4');
+
         const avatarImg = document.createElement('img');
+        avatarImg.classList.add('w-24', 'h-24', 'rounded-full', 'mr-4', 'opacity-0');
+
+        const loadingPlaceholder = document.createElement('div');
+        loadingPlaceholder.classList.add(
+            'w-24',
+            'h-24',
+            'rounded-full',
+            'bg-gray-200',
+            'animate-pulse'
+        );
+
+        avatarContainer.appendChild(loadingPlaceholder);
+
+        avatarImg.onload = () => {
+            loadingPlaceholder.remove();
+            avatarImg.classList.remove('opacity-0');
+            avatarImg.classList.add('opacity-100');
+        };
+
+        avatarImg.onerror = () => {
+            loadingPlaceholder.remove();
+            avatarImg.classList.add('hidden');
+            const errorContainer = document.createElement('div');
+            errorContainer.classList.add(
+                'w-24',
+                'h-24',
+                'rounded-full',
+                'bg-gray-100',
+                'flex',
+                'items-center',
+                'justify-center',
+                'text-gray-400'
+            );
+            errorContainer.textContent = 'Avatar unavailable';
+            avatarContainer.appendChild(errorContainer);
+        };
+
         avatarImg.src = userProfile.avatar.url;
         avatarImg.alt = userProfile.avatar.alt || `${userProfile.name}'s profile picture`;
-        avatarImg.classList.add('w-24', 'h-24', 'rounded-full', 'mr-4');
-        profileElement.appendChild(avatarImg);
+        avatarContainer.appendChild(avatarImg);
+        profileElement.appendChild(avatarContainer);
     }
 
     const nameElement = document.createElement('h1');
