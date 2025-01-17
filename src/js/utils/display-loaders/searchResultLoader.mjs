@@ -7,12 +7,18 @@ import { AuctionErrorTypes } from '../errors/errorTypes.mjs';
 export async function loadAndDisplaySearchResults(searchText) {
     const container = document.getElementById('auctionListingsContainer');
     if (!container) return;
+
     clearError(container);
     container.innerHTML = `<p class="text-blue-500">Searching for results...</p>`;
 
     try {
         const searchResults = await getListingsAccordingToSearch(searchText);
-        if (!searchResults || searchResults.length === 0) {
+
+        if (!searchResults) {
+            throw new AuctionError(AuctionErrorTypes.REQUEST_FAILED, 404);
+        }
+
+        if (searchResults.length === 0) {
             container.innerHTML = `
                 <div class="text-gray-600">
                     <p>No listings found matching "${searchText}"</p>
