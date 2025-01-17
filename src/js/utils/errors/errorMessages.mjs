@@ -32,6 +32,7 @@ export const AuctionErrorMessages = {
     [AuctionErrorTypes.MISSING_REQUIRED_FIELDS]: 'Please fill in all required fields.',
     [AuctionErrorTypes.INVALID_INPUT_FORMAT]: 'Invalid input format.',
     [AuctionErrorTypes.INVALID_DATE_FORMAT]: 'Invalid date format. Use YYYY-MM-DD.',
+    [AuctionErrorTypes.SEARCH_EMPTY]: 'Please enter what you want to search for',
     [AuctionErrorTypes.INVALID_ENDPOINT]:
         'Unable to reach the requested service. Please try again later.',
 };

@@ -1,3 +1,26 @@
+export function validateFormInput(value, validationFn, errorMessage, input) {
+    try {
+        const error = validationFn ? validationFn(value) : null;
+
+        if (error) {
+            errorMessage.textContent = error;
+            errorMessage.style.display = 'block';
+            input.classList.add('border-red-500');
+        } else {
+            errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
+            input.classList.remove('border-red-500');
+        }
+
+        return !error;
+    } catch (error) {
+        errorMessage.textContent = error.message || 'Invalid input';
+        errorMessage.style.display = 'block';
+        input.classList.add('border-red-500');
+        return false;
+    }
+}
+
 export const usernameValidation = value =>
     value.length >= 5 ? null : 'Username must be at least 5 characters long';
 

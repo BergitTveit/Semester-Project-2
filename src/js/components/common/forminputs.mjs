@@ -1,3 +1,4 @@
+import { clearError } from '../../utils/errors/displayError.mjs';
 import {
     bidAmountValidation,
     dateValidation,
@@ -6,9 +7,8 @@ import {
     titleValidation,
     urlValidation,
     usernameValidation,
+    validateFormInput,
 } from '../../utils/validation/validators.mjs';
-
-//Create input field
 
 function createInputField({ type, placeholder, validationFn, onInput }) {
     const container = document.createElement('div');
@@ -23,28 +23,13 @@ function createInputField({ type, placeholder, validationFn, onInput }) {
     errorMessage.classList.add('text-red-500', 'text-sm', 'mt-1');
     errorMessage.style.display = 'none';
 
-    function validateInput() {
-        const error = validationFn ? validationFn(input.value) : null;
-
-        if (error) {
-            errorMessage.textContent = error;
-            errorMessage.style.display = 'block';
-            input.classList.add('border-red-500');
-        } else {
-            errorMessage.textContent = '';
-            errorMessage.style.display = 'none';
-            input.classList.remove('border-red-500');
-        }
-        if (onInput) {
-            onInput();
-        }
-    }
-
-    input.addEventListener('input', validateInput);
+    input.addEventListener('input', () => {
+        validateFormInput(input.value, validationFn, errorMessage, input);
+        if (onInput) onInput();
+    });
 
     container.appendChild(input);
     container.appendChild(errorMessage);
-
     return container;
 }
 
@@ -155,9 +140,22 @@ export function createBidAmountInput(onInput) {
 }
 
 export function createSearchInput(onInput) {
-    return createInputField({
+    const searchField = createInputField({
         type: 'search',
         placeholder: 'Search listings...',
-        onInput,
+        onInput: () => {
+            const errorContainer = document.getElementById('searchErrorContainer');
+            if (errorContainer) {
+                clearError(errorContainer);
+            }
+            if (onInput) onInput();
+        },
     });
+
+    const input = searchField.querySelector('input');
+    if (input) {
+        input.setAttribute('aria-label', 'Search listings');
+    }
+
+    return searchField;
 }
