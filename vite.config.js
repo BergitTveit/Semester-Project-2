@@ -11,6 +11,7 @@ export default defineConfig({
                 profile: resolve(__dirname, 'src/pages/profile/index.html'),
                 listings: resolve(__dirname, 'src/pages/listings/index.html'),
                 specificListing: resolve(__dirname, 'src/pages/specific-listing/index.html'),
+                settings: resolve(__dirname, 'src/pages/settings/index.html'),
             },
         },
     },
