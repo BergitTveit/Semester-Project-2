@@ -1,5 +1,6 @@
 import '../input.css';
+import router from './router.mjs';
 
 document.addEventListener('DOMContentLoaded', () => {
-    //refactor to main
+    router();
 });
