@@ -1,9 +1,20 @@
 import { handleBidSubmit } from '../../utils/handlers/listing-handlers/addBidHandler.mjs';
+import { isLoggedIn } from '../../utils/storage/checkLoginStatus.mjs';
 import { bidAmountValidation } from '../../utils/validation/validators.mjs';
 import { createButton } from '../common/buttons.mjs';
 import { createBidAmountInput } from '../common/forminputs.mjs';
 
 export function initializeBidForm(listing) {
+    if (!isLoggedIn()) {
+        const loginPrompt = document.createElement('div');
+        loginPrompt.classList.add('mt-4', 'p-4', 'border', 'rounded', 'bg-gray-50', 'text-center');
+        loginPrompt.innerHTML = `
+            <p class="mb-2">Please log in to place a bid</p>
+            <a href="/src/pages/login/index.html" class="text-blue-500 hover:text-blue-700">Login here</a>
+        `;
+        return loginPrompt;
+    }
+
     const form = document.createElement('form');
     if (!form) return;
 
