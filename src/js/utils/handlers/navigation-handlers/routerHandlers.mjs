@@ -2,7 +2,7 @@ export function handleCancelButtonClick() {
     window.location.href = '/index.html';
 }
 export function handleSettingsButtonClick() {
-    window.location.href = '/src/pages/settings/index.html';
+    window.location.href = '/settings/index.html';
 }
 
 export function handleGoToRegisterPageClick() {
