@@ -2,9 +2,8 @@ export default function router() {
     const path = location.pathname;
     const currentPath = window.location.pathname;
 
-    // Only redirect if we're actually changing pages
     if (path === currentPath) {
-        return; // Don't redirect if we're already on the page
+        return;
     }
 
     switch (path) {
@@ -13,32 +12,36 @@ export default function router() {
             window.location.href = '/index.html';
             break;
 
-        case '/src/pages/login/':
-        case '/src/pages/login/index.html':
-            window.location.href = '/src/pages/login/index.html';
+        case '/login/':
+        case '/login':
+        case '/login/index.html':
+            window.location.href = '/login/index.html';
             break;
 
-        case '/src/pages/register/':
-        case '/src/pages/register/index.html':
-            window.location.href = '/src/pages/register/index.html';
+        case '/register/':
+        case '/register':
+        case '/register/index.html':
+            window.location.href = '/register/index.html';
             break;
 
-        case '/src/pages/profile/':
-        case '/src/pages/profile/index.html':
-            window.location.href = '/src/pages/profile/index.html';
+        case '/profile/':
+        case '/profile':
+        case '/profile/index.html':
+            window.location.href = '/profile/index.html';
             break;
 
-        case '/src/pages/listings/':
-        case '/src/pages/listings/index.html':
-            window.location.href = '/src/pages/listings/index.html';
+        case '/listings/':
+        case '/listings':
+        case '/listings/index.html':
+            window.location.href = '/listings/index.html';
             break;
 
-        case '/src/pages/specific-listing/':
-        case '/src/pages/specific-listing/index.html': {
+        case '/specific-listing/':
+        case '/specific-listing': {
             const params = new URLSearchParams(window.location.search);
             const id = params.get('id');
             if (id) {
-                window.location.href = `/src/pages/specific-listing/index.html?id=${id}`;
+                window.location.href = `/specific-listing/index.html?id=${id}`;
             }
             break;
         }
