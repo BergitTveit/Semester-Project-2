@@ -8,9 +8,13 @@ import { createButton } from '../common/buttons.mjs';
 import { handleCreateListingSubmit } from '../../utils/handlers/listing-handlers/createHandler.mjs';
 
 export function initializeCreateListingForm() {
+    console.log('Initializing create listing form');
     const form = document.getElementById('createListingForm');
-    if (!form) return;
-
+    console.log('Form element:', form);
+    if (!form) {
+        console.error('Create listing form not found');
+        return;
+    }
     const addListingButton = createButton('Create Auction', null, 'submit');
     addListingButton.id = 'createListingButton';
     addListingButton.disabled = true;

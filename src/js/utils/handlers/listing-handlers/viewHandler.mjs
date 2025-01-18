@@ -5,7 +5,7 @@ export async function handleViewListingButtonClick(listingId) {
     }
 
     try {
-        window.location.href = `src/pages/specific-listing/index.html?id=${listingId}`;
+        window.location.href = `/src/pages/specific-listing/index.html?id=${listingId}`;
     } catch (error) {
         console.error('Error fetching specific listing:', error);
     }

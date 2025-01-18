@@ -16,9 +16,10 @@ export async function handleCreateListingSubmit(formData) {
 
         showSuccessMessage('Auction listing created successfully!');
         if (typeof window !== 'undefined' && window.location) {
-            window.location.href = `src/pages/specific-listing/index.html?id=${response.data.id}`;
+            window.location.href = `/src/pages/specific-listing/index.html?id=${response.data.id}`;
         }
     } catch (error) {
+        3;
         showErrorMessage(error.message || 'Failed to create auction listing');
     }
 }

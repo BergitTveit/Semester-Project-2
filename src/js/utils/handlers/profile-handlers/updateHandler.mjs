@@ -20,7 +20,7 @@ export async function handleUpdateButtonClick(event) {
         save('profile', updatedProfile.data);
         alert('Profile updated successfully!');
 
-        window.location.href = `src/pages/profile/index.html?name=${updatedProfile.name}`;
+        window.location.href = `/src/pages/profile/index.html?name=${updatedProfile.name}`;
     } catch (error) {
         console.error('Error updating profile:', error);
         alert('Failed to update profile. Please try again.');

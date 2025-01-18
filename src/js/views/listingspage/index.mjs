@@ -1,6 +1,6 @@
-import { initializeCreateListingForm } from '../../components/forms/createListingForm.mjs';
-import { createBottomNavBar } from '../../components/common/navbar.mjs';
-import { loadAndDisplayAuctionListings } from '../../utils/display-loaders/listingLoader.mjs';
+import { initializeCreateListingForm } from '/src/js/components/forms/createListingForm.mjs';
+import { createBottomNavBar } from '/src/js/components/common/navbar.mjs';
+import { loadAndDisplayAuctionListings } from '/src/js/utils/display-loaders/listingLoader.mjs';
 
 async function auctionPage() {
     await initializeCreateListingForm();

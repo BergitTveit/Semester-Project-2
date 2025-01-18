@@ -10,14 +10,14 @@ export function createBottomNavBar() {
     const categoryButton = createNavButton(
         'Categories',
         'fas fa-list',
-        '/pages/listings/index.html'
+        '/src/pages/listings/index.html'
     );
     const addButton = createNavButton(
         'Add Listing',
         'fas fa-plus-circle',
-        '/pages/listings/index.html'
+        '/src/pages/listings/index.html'
     );
-    const bidsButton = createNavButton('Bids', 'fas fa-gavel', '/pages/bids/index.html');
+    const bidsButton = createNavButton('Bids', 'fas fa-gavel', '/src/pages/bids/index.html');
     const profileButton = createNavButton('Profile', 'fas fa-user', redirectToProfileOrLogin);
 
     navBar.appendChild(homeButton);
