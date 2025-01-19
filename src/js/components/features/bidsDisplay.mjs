@@ -11,11 +11,11 @@ export function displayListingBids(response) {
     containerElement.innerHTML = '';
 
     const bidsSection = document.createElement('div');
-    bidsSection.classList.add('border', 'p-4', 'rounded', 'shadow', 'mb-4', 'bg-white', 'w-full');
+    bidsSection.classList.add('p-4', 'rounded', 'shadow', 'mb-4', 'w-full');
 
     const bidsTitle = document.createElement('h2');
     bidsTitle.textContent = 'Bid History';
-    bidsTitle.classList.add('text-2xl', 'font-bold', 'mb-4');
+    bidsTitle.classList.add('text-2xl', 'text-secondary', 'font-bold', 'mb-4');
     bidsSection.appendChild(bidsTitle);
 
     if (!bids?.length) {

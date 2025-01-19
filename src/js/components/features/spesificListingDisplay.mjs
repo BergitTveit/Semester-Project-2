@@ -1,32 +1,31 @@
 import { initializeBidForm } from '../forms/addBidForm.mjs';
+import { createImagePlaceholder } from '../common/imageplaceholder.mjs';
 
 export function displaySpecificListing(response) {
     if (!response?.data) return;
     const listing = response.data;
-
     const container = document.getElementById('listingContainer');
     if (!container) return;
-
     container.innerHTML = '';
 
     const spesificListingElement = document.createElement('div');
     spesificListingElement.classList.add(
         'listing',
-        'border',
         'p-4',
         'rounded',
         'shadow',
         'mb-4',
         'bg-white',
-        'w-full'
+        'w-full',
+        'mx-auto'
     );
 
-    if (listing.media && listing.media.length > 0) {
-        const mediaContainer = document.createElement('div');
-        mediaContainer.classList.add('mb-4', 'aspect-video', 'overflow-hidden', 'rounded');
+    const mediaContainer = document.createElement('div');
+    mediaContainer.classList.add('mb-4', 'aspect-video', 'overflow-hidden', 'rounded');
 
+    if (listing.media && listing.media.length > 0) {
         const image = document.createElement('img');
-        image.classList.add('w-full', 'h-full', 'object-cover');
+        image.classList.add('w-full', 'h-full', 'object-cover', 'opacity-0');
 
         const loadingPlaceholder = document.createElement('div');
         loadingPlaceholder.classList.add('w-full', 'h-full', 'bg-gray-200', 'animate-pulse');
@@ -41,25 +40,17 @@ export function displaySpecificListing(response) {
         image.onerror = () => {
             loadingPlaceholder.remove();
             image.classList.add('hidden');
-            const errorContainer = document.createElement('div');
-            errorContainer.classList.add(
-                'w-full',
-                'h-full',
-                'bg-gray-100',
-                'flex',
-                'items-center',
-                'justify-center',
-                'text-gray-400'
-            );
-            errorContainer.textContent = 'Image unavailable';
-            mediaContainer.appendChild(errorContainer);
+            mediaContainer.appendChild(createImagePlaceholder());
         };
 
         image.src = listing.media[0].url;
         image.alt = listing.media[0].alt || listing.title;
         mediaContainer.appendChild(image);
-        spesificListingElement.appendChild(mediaContainer);
+    } else {
+        mediaContainer.appendChild(createImagePlaceholder());
     }
+
+    spesificListingElement.appendChild(mediaContainer);
 
     const titleElement = document.createElement('h1');
     titleElement.textContent = listing.title;
@@ -79,11 +70,11 @@ export function displaySpecificListing(response) {
 
     const bidForm = initializeBidForm(listing);
 
-    spesificListingElement.appendChild(bidForm);
     spesificListingElement.appendChild(titleElement);
     spesificListingElement.appendChild(descriptionElement);
     spesificListingElement.appendChild(bidCountElement);
     spesificListingElement.appendChild(endDateElement);
+    spesificListingElement.appendChild(bidForm);
 
     container.appendChild(spesificListingElement);
 }

@@ -10,14 +10,44 @@ import {
     validateFormInput,
 } from '../../utils/validation/validators.mjs';
 
-function createInputField({ type, placeholder, validationFn, onInput }) {
+function createInputField({ type, placeholder, validationFn, onInput, rows = 1 }) {
     const container = document.createElement('div');
-    container.classList.add('relative', 'mb-4');
+    container.classList.add('relative', 'mb-6', 'w-[350px]');
 
-    const input = document.createElement('input');
-    input.type = type;
+    const input =
+        type === 'textarea' ? document.createElement('textarea') : document.createElement('input');
+
+    if (type === 'textarea') {
+        input.rows = rows;
+    } else {
+        input.type = type;
+    }
+
     input.placeholder = placeholder;
-    input.classList.add('form-input');
+
+    input.classList.add(
+        'w-full',
+        'px-3',
+        'py-2',
+        'text-gray-700',
+        'font-istok-web',
+        'text-base',
+        'bg-white',
+        'rounded-md',
+        'shadow-inner',
+        'shadow-darkGray/30',
+        'focus:outline-none',
+        'focus:ring-1',
+        'focus:ring-secondary',
+        'placeholder-darkGray',
+        'border-0'
+    );
+
+    if (type === 'textarea') {
+        input.classList.add('resize-y');
+    } else {
+        input.classList.add('h-10');
+    }
 
     const errorMessage = document.createElement('div');
     errorMessage.classList.add('text-red-500', 'text-sm', 'mt-1');
@@ -33,7 +63,6 @@ function createInputField({ type, placeholder, validationFn, onInput }) {
     return container;
 }
 
-//Create different input fields for forms
 export function createNameInput(onInput) {
     return createInputField({
         type: 'text',
@@ -60,24 +89,14 @@ export function createPasswordInput(onInput) {
         onInput,
     });
 }
-
-export function createBioInput(onInput) {
-    const container = document.createElement('div');
-    container.classList.add('relative', 'mb-4');
-
-    const textarea = document.createElement('textarea');
-    textarea.placeholder = 'Bio';
-    textarea.classList.add('form-textarea');
-    textarea.rows = 3;
-
-    if (onInput) {
-        textarea.addEventListener('input', onInput);
-    }
-
-    container.appendChild(textarea);
-    return container;
+export function createTextareaInput(onInput, placeholder = 'text input') {
+    return createInputField({
+        type: 'textarea',
+        placeholder: placeholder,
+        onInput: onInput,
+        rows: 3,
+    });
 }
-
 export function createMediaInput(onInput) {
     return createInputField({
         type: 'url',
@@ -111,23 +130,6 @@ export function createListingMediaInput(onInput) {
         placeholder: 'Image URL (optional)',
         onInput,
     });
-}
-
-export function createDescriptionInput(onInput) {
-    const container = document.createElement('div');
-    container.classList.add('relative', 'mb-4');
-
-    const textarea = document.createElement('textarea');
-    textarea.placeholder = 'Description (optional)';
-    textarea.classList.add('form-textarea');
-    textarea.rows = 4;
-
-    if (onInput) {
-        textarea.addEventListener('input', onInput);
-    }
-
-    container.appendChild(textarea);
-    return container;
 }
 
 export function createBidAmountInput(onInput) {

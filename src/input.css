@@ -2,3 +2,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-fadedOrange;
+    }
+    main {
+        @apply pt-16 pb-20;
+    }
+}

@@ -18,7 +18,7 @@ export function initializeBidForm(listing) {
     const form = document.createElement('form');
     if (!form) return;
 
-    form.classList.add('mt-4', 'p-4', 'border', 'rounded', 'bg-gray-50');
+    form.classList.add('mt-4', 'p-4', 'rounded');
 
     const bidInput = createBidAmountInput(checkFormValidity);
     const submitButton = createButton('Place Bid', null, 'submit');

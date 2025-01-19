@@ -5,6 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="assets/images/favicon-32x32.png" type="image/x-icon" />
         <link href="./output.css" rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Irish+Grover&family=Istok+Web&display=swap"
+            rel="stylesheet"
+        />
+
         <script type="module" src="src/js/views/homepage" defer></script>
         <script type="module" src="/src/js/main.mjs"></script>
         <link
@@ -14,12 +23,13 @@
     </head>
 
     <body>
-        <header><h1 class="text-3xl font-bold underline">BidHive, CreditBay</h1></header>
-        <form id="searchForm" class="w-full max-w-md mx-auto mb-4"></form>
-        <div id="searchErrorContainer"></div>
-        <div id="auctionListingsContainer" class="container mx-auto mt-8 mb-20"></div>
+        <header id="headerContainer"></header>
+        <main>
+            <form id="searchForm" class="w-full max-w-md mx-auto mb-4"></form>
+            <div id="searchErrorContainer"></div>
+            <div id="auctionListingsContainer" class="container mx-auto mt-8 mb-20"></div>
+        </main>
 
         <div id="bottomNavBar"></div>
-        <footer></footer>
     </body>
 </html>
