@@ -7,10 +7,9 @@ export async function getAuctionListings() {
 }
 
 export async function getSpecificListing(listingId) {
-    const url = `${API_BASE}${API_AUCTION_LISTINGS}/${listingId}`;
+    const url = `${API_BASE}${API_AUCTION_LISTINGS}/${listingId}?_seller=true&_bids=true`;
     return apiRequest(url, 'GET', null, false);
 }
-
 export async function getListingBids(listingId) {
     const url = `${API_BASE}${API_AUCTION_LISTINGS}/${listingId}?_bids=true`; // Add _bids=true to get bids
     const data = await apiRequest(url, 'GET', null, true);
