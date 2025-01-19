@@ -6,7 +6,7 @@ import { AuctionError } from '../errors/AuctionError.mjs';
 import { AuctionErrorTypes } from '../errors/errorTypes.mjs';
 
 export async function loadAndDisplayProfile() {
-    const container = document.getElementById('profile-container');
+    const container = document.getElementById('profileContainer');
     if (!container) return;
 
     clearError(container);

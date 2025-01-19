@@ -4,10 +4,8 @@ export function displayBidElement(bid) {
     const bidElement = document.createElement('div');
     bidElement.classList.add(
         'bid-item',
-        'border',
         'rounded',
         'p-3',
-        'bg-gray-50',
         'flex',
         'justify-between',
         'items-center'

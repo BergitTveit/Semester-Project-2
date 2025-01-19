@@ -7,6 +7,16 @@
 
         <link href="/output.css" rel="stylesheet" />
         <title>Profile Page</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Irish+Grover&family=Istok+Web&display=swap"
+            rel="stylesheet"
+        />
+
+        <script type="module" src="/src/js/main.mjs"></script>
         <script type="module" src="/src/js/views/profilepage/index.mjs" defer></script>
         <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -14,7 +24,10 @@
         />
     </head>
     <body>
-        <div id="profile-container" class="w-full max-w-md"></div>
+        <header id="headerContainer"></header>
+        <main class="flex justify-center items-center min-h-[calc(100vh-header-height)] w-full">
+            <div id="profileContainer" class="w-full max-w-6xl mx-auto px-4"></div>
+        </main>
 
         <div id="bottomNavBar"></div>
     </body>

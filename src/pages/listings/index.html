@@ -14,9 +14,19 @@
                 margin: auto;
             }
         </style>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Irish+Grover&family=Istok+Web&display=swap"
+            rel="stylesheet"
+        />
+
         <link href="/output.css" rel="stylesheet" />
 
         <title>Auction Listings</title>
+        <script type="module" src="/src/js/main.mjs"></script>
         <script type="module" src="/src/js/views/listingspage/index.mjs" defer></script>
         <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -24,10 +34,11 @@
         />
     </head>
     <body>
-        <form id="createListingForm" class="container mx-auto mt-8"></form>
-
-        <div id="auctionListingsContainer" class="container mx-auto mt-8"></div>
-
+        <header id="headerContainer"></header>
+        <main class="flex flex-col items-center w-full px-4">
+            <form id="createListingForm" class="w-full max-w-2xl"></form>
+            <div id="auctionListingsContainer" class="w-full max-w-2xl mt-8"></div>
+        </main>
         <div id="bottomNavBar"></div>
     </body>
 </html>

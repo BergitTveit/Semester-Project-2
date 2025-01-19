@@ -1,33 +1,53 @@
 import {
+    createTextareaInput,
     createDateInput,
-    createDescriptionInput,
     createListingMediaInput,
     createTitleInput,
 } from '../common/forminputs.mjs';
 import { createButton } from '../common/buttons.mjs';
 import { handleCreateListingSubmit } from '../../utils/handlers/listing-handlers/createHandler.mjs';
-
+import { handleCancelButtonClick } from '../../utils/handlers/navigation-handlers/routerHandlers.mjs';
 export function initializeCreateListingForm() {
-    console.log('Initializing create listing form');
     const form = document.getElementById('createListingForm');
-    console.log('Form element:', form);
-    if (!form) {
-        console.error('Create listing form not found');
-        return;
-    }
+    if (!form) return;
+
+    form.classList.add(
+        'flex',
+        'flex-col',
+        'items-center',
+        'mx-auto',
+
+        'gap-4',
+        'px-4',
+        'w-full',
+        'max-w-lg'
+    );
+
+    const titleInput = createTitleInput();
+    const dateInput = createDateInput();
+    const descriptionInput = createTextareaInput(null, 'Describe your listing'); // Using createTextareaInput for textarea
+    const mediaInput = createListingMediaInput();
+
+    [titleInput, dateInput, descriptionInput, mediaInput].forEach(input => {
+        input.classList.add('w-full');
+    });
+    descriptionInput.querySelector('textarea').classList.add('resize-none');
+
     const addListingButton = createButton('Create Auction', null, 'submit');
     addListingButton.id = 'createListingButton';
     addListingButton.disabled = true;
 
-    const titleInput = createTitleInput();
-    const dateInput = createDateInput();
-    const mediaInput = createListingMediaInput();
-    const descriptionInput = createDescriptionInput();
+    const cancelButton = createButton('Cancel', handleCancelButtonClick, 'button', 'secondary');
+    cancelButton.id = 'cancelButton';
+
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList.add('flex', 'justify-between', 'items-center', 'w-full', 'mt-4');
+    buttonContainer.appendChild(cancelButton);
+    buttonContainer.appendChild(addListingButton);
 
     function checkFormValidity() {
         const isTitleValid = titleInput.querySelector('input').value.trim() !== '';
         const isDateValid = dateInput.querySelector('input').value.trim() !== '';
-
         const isFormValid = isTitleValid && isDateValid;
 
         addListingButton.disabled = !isFormValid;
@@ -51,6 +71,11 @@ export function initializeCreateListingForm() {
         }
     });
 
-    form.append(titleInput, dateInput, mediaInput, descriptionInput, addListingButton);
+    form.appendChild(titleInput);
+    form.appendChild(dateInput);
+    form.appendChild(descriptionInput);
+    form.appendChild(mediaInput);
+    form.appendChild(buttonContainer);
+
     checkFormValidity();
 }

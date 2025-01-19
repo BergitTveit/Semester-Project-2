@@ -52,7 +52,42 @@ export const dateValidation = value => {
     return null;
 };
 
-export const bidAmountValidation = value => {
-    if (!value || value <= 0) return 'Bid amount must be greater than 0';
+export const bidAmountValidation = (value, bids = []) => {
+    if (value < 0) return 'Bid amount must be greater than 0';
+
+    if (!value || value === 0) return null;
+
+    const highestBid = bids.length > 0 ? Math.max(...bids.map(bid => bid.amount)) : 0;
+
+    if (bids.length > 0 && value <= highestBid) {
+        return `Bid must be higher than the current highest bid (${highestBid})`;
+    }
+
     return null;
 };
+export function validateOwnListing(listing) {
+    try {
+        if (!listing?.seller?.name) {
+            return false;
+        }
+
+        const profileStr = localStorage.getItem('profile');
+        if (!profileStr) {
+            return false;
+        }
+
+        const profile = JSON.parse(profileStr);
+
+        if (listing.seller.name === profile.name) {
+            const container = document.createElement('div');
+            container.innerHTML = `
+                <p class="text-yellow-500">This is your own listing. You cannot bid on your listings.</p>
+            `;
+            return container;
+        }
+        return false;
+    } catch (error) {
+        console.error('Error checking listing ownership:', error);
+        return false;
+    }
+}

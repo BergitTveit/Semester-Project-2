@@ -1,13 +1,11 @@
 import { updateProfile } from '../../../api/profile/updateProfile.mjs';
 import { save } from '../../storage/save.mjs';
-
 export async function handleUpdateButtonClick(event) {
     event.preventDefault();
-
     const form = document.getElementById('settingsForm');
-    const nameInput = form.querySelector('input[placeholder="Name"]');
-    const bioInput = form.querySelector('textarea[placeholder="Bio"]');
-    const avatarInput = form.querySelector('input[placeholder="Avatar Image URL"]');
+    const nameInput = form.querySelector('#nameInput');
+    const bioInput = form.querySelector('#bioInput');
+    const avatarInput = form.querySelector('#avatarInput');
 
     const profileData = {
         name: nameInput.value,
@@ -19,7 +17,6 @@ export async function handleUpdateButtonClick(event) {
         const updatedProfile = await updateProfile(profileData);
         save('profile', updatedProfile.data);
         alert('Profile updated successfully!');
-
         window.location.href = `/src/pages/profile/index.html?name=${updatedProfile.name}`;
     } catch (error) {
         console.error('Error updating profile:', error);

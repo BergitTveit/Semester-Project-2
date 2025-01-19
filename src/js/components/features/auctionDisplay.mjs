@@ -24,7 +24,16 @@ export function displayAuctionListings(response) {
         (a, b) => new Date(b.endsAt) - new Date(a.endsAt)
     );
     const listingsContainer = document.createElement('div');
-    listingsContainer.classList.add('space-y-4');
+    listingsContainer.classList.add(
+        'grid',
+        'grid-cols-1',
+        'md:grid-cols-2',
+        'lg:grid-cols-3',
+        'xl:grid-cols-4',
+        '2xl:grid-cols-6',
+        'gap-4',
+        'p-4'
+    );
 
     let currentIndex = 0;
     sortedListings.slice(currentIndex, 12).forEach(listing => {

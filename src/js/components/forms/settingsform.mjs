@@ -3,7 +3,7 @@ import {
     createEmailInput,
     createNameInput,
     createMediaInput,
-    createBioInput,
+    createTextareaInput,
 } from '../common/forminputs.mjs';
 
 import { load } from '../../utils/storage/load.mjs';
@@ -15,20 +15,50 @@ export function initializeSettingsForm() {
     const form = document.getElementById('settingsForm');
     if (!form) return;
 
+    form.classList.add(
+        'flex',
+        'flex-col',
+        'items-center',
+        'mx-auto',
+        'mt-16',
+        'gap-4',
+        'px-4',
+        'w-full',
+        'max-w-lg'
+    );
+    const nameInput = createNameInput();
+    nameInput.querySelector('input').id = 'nameInput';
+
+    const emailInput = createEmailInput();
+    emailInput.querySelector('input').id = 'emailInput';
+
+    const bioInput = createTextareaInput(null, 'About yourself...');
+    bioInput.querySelector('textarea').id = 'bioInput';
+
+    const avatarInput = createMediaInput();
+    avatarInput.querySelector('input').id = 'avatarInput';
+
     const updateButton = createButton('Save Changes', null, 'submit');
     updateButton.id = 'updateButton';
     updateButton.disabled = true;
 
-    const logoutButton = createButton('Logout', handleLogoutButtonClick, 'button');
+    const logoutButton = createButton('Logout', handleLogoutButtonClick, 'button', 'secondary');
     logoutButton.id = 'logoutButton';
+    logoutButton.classList.add('mt-8', 'mx-auto');
 
-    const cancelButton = createButton('Cancel', handleCancelButtonClick, 'button');
+    const cancelButton = createButton('Cancel', handleCancelButtonClick, 'button', 'secondary');
     cancelButton.id = 'cancelButton';
 
-    const nameInput = createNameInput();
-    const emailInput = createEmailInput();
-    const bioInput = createBioInput();
-    const avatarInput = createMediaInput();
+    [nameInput, emailInput, bioInput, avatarInput].forEach(input => {
+        input.classList.add('w-full');
+    });
+    bioInput.querySelector('textarea').classList.add('resize-none');
+
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList.add('flex', 'justify-between', 'items-center', 'w-full', 'mt-4');
+
+    buttonContainer.appendChild(cancelButton);
+    buttonContainer.appendChild(updateButton);
 
     const profile = load('profile');
     if (profile) {
@@ -66,8 +96,7 @@ export function initializeSettingsForm() {
     form.appendChild(emailInput);
     form.appendChild(bioInput);
     form.appendChild(avatarInput);
-    form.appendChild(cancelButton);
-    form.appendChild(updateButton);
+    form.appendChild(buttonContainer);
     form.appendChild(logoutButton);
 
     checkFormValidity();

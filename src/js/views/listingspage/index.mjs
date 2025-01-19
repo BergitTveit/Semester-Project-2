@@ -1,9 +1,11 @@
 import { initializeCreateListingForm } from '/src/js/components/forms/createListingForm.mjs';
 import { createBottomNavBar } from '/src/js/components/common/navbar.mjs';
 import { loadAndDisplayAuctionListings } from '/src/js/utils/display-loaders/listingLoader.mjs';
-import { isLoggedIn } from '../../utils/storage/checkLoginStatus.mjs';
+import { isLoggedIn } from '/src/js/utils/storage/checkLoginStatus.mjs';
+import { createHeader } from '/src/js/components/common/header.mjs';
 
 async function auctionPage() {
+    createHeader();
     if (isLoggedIn()) {
         await initializeCreateListingForm();
     } else {
